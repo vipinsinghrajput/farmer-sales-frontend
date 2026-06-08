@@ -1,0 +1,56 @@
+<app-farmer-navbar>
+   <cdk-virtual-scroll-viewport itemSize="320" class="product-scroll-viewport">
+<div class="profile-container">
+  <!-- View Mode -->
+  <div *ngIf="farmerData && !editMode">
+    <h2>My Profile</h2>
+
+    <div class="profile-field"><strong>Name:</strong> {{ farmerData.name }}</div>
+    <div class="profile-field"><strong>Email:</strong> {{ farmerData.email }}</div>
+    <div class="profile-field"><strong>Mobile:</strong> {{ farmerData.mobileNumber }}</div>
+    <div class="profile-field"><strong>Farm Name:</strong> {{ farmerData.farmName }}</div>
+    <div class="profile-field"><strong>Farm Address:</strong> {{ farmerData.farmAddress }}</div>
+    <div class="profile-field"><strong>Pincode:</strong> {{ farmerData.pincode }}</div>
+    <div class="profile-field"><strong>Farm Description:</strong> {{ farmerData.farmDescription }}</div>
+    <div class="profile-field"><strong>Farm License No.:</strong> {{ farmerData.farmLicenseNumber }}</div>
+
+    <button (click)="enableEdit()">Update Profile</button>
+  </div>
+
+  <!-- Edit Mode -->
+  <div *ngIf="editMode && profileForm">
+    <h2>Edit Profile</h2>
+
+    <form [formGroup]="profileForm" (ngSubmit)="onUpdate()">
+      <label>Name:</label>
+      <input formControlName="name" type="text" />
+
+      <label>Farm Name:</label>
+      <input formControlName="farmName" type="text" />
+
+      <label>Farm Address:</label>
+      <input formControlName="farmAddress" type="text" />
+
+      <label>Pincode:</label>
+      <input formControlName="pincode" type="text" />
+
+      <label>Farm Description:</label>
+      <textarea formControlName="farmDescription"></textarea>
+
+      <label>Farm License Number:</label>
+      <input formControlName="farmLicenseNumber" type="text" />
+
+      <div class="button-group">
+        <button type="submit" [disabled]="profileForm.invalid">Save Changes</button>
+        <button type="button" (click)="cancelEdit()" class="cancel-btn">Cancel</button>
+      </div>
+
+    <div *ngIf="errorMessage" class="error-alert">
+     {{ errorMessage }}
+    </div>
+
+    </form>
+  </div>
+</div>
+</cdk-virtual-scroll-viewport>
+</app-farmer-navbar>

@@ -1,0 +1,149 @@
+<!-- <div class="cart-container p-4">
+  <h2 class="text-2xl font-bold mb-4">🛒 Your Cart</h2>
+
+  <div *ngIf="cartItems.length === 0" class="text-gray-500 text-center mt-10">
+    Cart is empty.
+  </div>
+
+  <div *ngFor="let item of cartItems" class="cart-item bg-white rounded-xl shadow p-4 mb-4">
+    <h3 class="text-lg font-semibold">{{ item.productName }}</h3>
+
+    <div class="flex items-center mt-2">
+      <button class="btn" (click)="decrementQuantity(item)">−</button>
+      <span class="mx-4 font-medium">{{ item.quantity }}</span>
+      <button class="btn" (click)="incrementQuantity(item)">+</button>
+    </div>
+  </div>
+
+  <button 
+    class="mt-6 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+    (click)="confirmCart()"
+    [disabled]="cartItems.length === 0">
+    ✅ Confirm Cart
+  </button>
+</div> -->
+
+<app-consumer-navbar>
+<div class="cart-container">
+  <h2 class="title">🛒 Your Cart</h2>
+
+  <div *ngIf="cartItems.length === 0" class="empty-cart">
+    <img src="empty-cart.png" alt="Empty Cart" />
+    <p>Your cart is empty</p>
+     <div class="add-more-container">
+  <button class="add-more-btn" (click)="viewProduct()">➕ Add Item</button>
+</div>
+
+  </div>
+
+  <div *ngIf="cartItems.length > 0">
+    <div class="cart-item" *ngFor="let item of cartItems">
+         <img [src]="item.productimageUrl" alt="Product" />
+      <div class="item-details">
+        <h4>{{ item.productName }}</h4>
+        <p>₹{{ item.price }}</p>
+        <div class="qty-control">
+          <button (click)="decrement(item)">−</button>
+          <span>{{ item.quantity }}</span>
+          <button (click)="increment(item)">+</button>
+        </div>
+        <button class="remove-btn" (click)="remove(item)">Remove</button>
+      </div>
+      
+    </div>
+
+  <div class="add-more-container">
+  <button class="add-more-btn" (click)="viewProduct()">➕ Add More Item</button>
+</div>
+
+
+    <div class="address-section mb-6">
+  <h3 class="text-xl font-semibold mb-2">🚚 Select Delivery Address</h3>
+
+  <!-- Address Dropdown -->
+  <select class="w-full p-3 rounded border shadow" [(ngModel)]="selectedAddressId"    (change)="onAddressChange($event)">
+   <!-- <option [ngValue]="null">Select Delivery Address</option> -->
+    <option *ngFor="let address of addresses" [ngValue]="address.id">
+      {{ address.street }}, {{ address.city }}, {{ address.state }} - {{ address.postalCode }}
+    </option>
+    <option [ngValue]="null">➕ Add New Address</option>
+  </select>
+
+ <div *ngIf="selectedAddressId === null" class="mt-4 bg-gray-50 p-4 rounded shadow">
+    <h4 class="text-lg font-semibold mb-2">Add New Address</h4>
+
+  <form [formGroup]="addressForm" (ngSubmit)="saveNewAddress()">
+  <input class="input" formControlName="street" placeholder="Street" />
+  <div *ngIf="addressForm.get('street')?.touched && addressForm.get('street')?.invalid" class="text-red-500 text-sm">
+    Street is required.
+  </div>
+
+  <input class="input" formControlName="city" placeholder="City" />
+  <div *ngIf="addressForm.get('city')?.touched && addressForm.get('city')?.invalid" class="text-red-500 text-sm">
+    City is required.
+  </div>
+
+  <input class="input" formControlName="state" placeholder="State" />
+  <div *ngIf="addressForm.get('state')?.touched && addressForm.get('state')?.invalid" class="text-red-500 text-sm">
+    State is required.
+  </div>
+
+  <input class="input" formControlName="country" placeholder="Country" />
+  <div *ngIf="addressForm.get('country')?.touched && addressForm.get('country')?.invalid" class="text-red-500 text-sm">
+    Country is required.
+  </div>
+
+  <input class="input" formControlName="postalCode" placeholder="Postal Code" />
+  <div *ngIf="addressForm.get('postalCode')?.touched && addressForm.get('postalCode')?.errors?.['required']" class="text-red-500 text-sm">
+    Postal Code is required.
+  </div>
+  <div *ngIf="addressForm.get('postalCode')?.touched && addressForm.get('postalCode')?.errors?.['pattern']" class="text-red-500 text-sm">
+    Postal Code must be 5 or 6 digits.
+  </div>
+
+  <!-- Submit Button -->
+  <button type="submit" class="btn-green mt-2" [disabled]="addressForm.invalid">
+    💾 Save Address
+  </button>
+
+</form>
+</div>
+
+
+</div>
+
+
+<div class="to-pay-card">
+  <h3>Bill Summary</h3>
+
+  <div class="summary-item">
+    <span>Item Total</span>
+    <span>₹{{ totalAmount }}</span>
+  </div>
+
+  <div class="summary-item">
+    <span>Platform Fee</span>
+    <span>₹{{ platformFee }}</span>
+  </div>
+
+  <div class="summary-item">
+    <span>Delivery Charges</span>
+    <span>₹{{ deliveryFee }}</span>
+  </div>
+
+  <div class="summary-total">
+    <span>To Pay</span>
+    <span>₹{{ finalAmount }}</span>
+  </div>
+
+  <!-- <button class="pay-now-btn" (click)="checkout()">Pay Now</button> -->
+</div>
+
+    <div class="checkout-section">
+      <p>Total: <strong>₹{{ finalAmount }}</strong></p>
+      <button class="checkout-btn" (click)="checkout()">Proceed to Checkout</button>
+    </div>
+
+  </div>
+</div>
+</app-consumer-navbar>

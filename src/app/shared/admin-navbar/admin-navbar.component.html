@@ -1,0 +1,50 @@
+<div class="dashboard-container">
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">🥗 FarmFresh - 👨‍💼 Admin Dashboard</div>
+    <div class="logout">
+      <button (click)="logout()">🚪 Logout</button>
+    </div>
+  </nav>
+
+  <!-- Main Layout -->
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="profile-card">
+        <h4>{{ adminData.name}}</h4>
+        <small>🌾 Consumer</small>
+      </div>
+
+      <ul class="menu">
+        <li [class.active]="active==='dashboard'" (click)="goTo('dashboard')">🏠 Home</li>
+        <li [class.active]="active==='users'" (click)="goTo('users')">👥 Manage Users</li>
+        <li [class.active]="active==='products'" (click)="goTo('products')">🛒 Manage Products</li>
+        <li [class.active]="active==='orders'" (click)="goTo('orders')">📦 Orders</li>
+        <li [class.active]="active==='reports'" (click)="goTo('reports')">📈 Reports</li>
+        <!-- <li [class.active]="active==='address'" (click)="goTo('address')">📍 Addresses</li> -->
+        <li [class.active]="active==='notification'" (click)="goTo('notification')">
+          🔔 Notifications
+          <span *ngIf="unreadCount > 0" class="dot"></span>
+        </li>
+        <li [class.active]="active==='profile'" (click)="goTo('profile')">🙍‍♂️ Profile</li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+    <ng-content></ng-content>
+  <!-- Notification Section -->
+  <div *ngIf="active === 'notification'" class="notification-container">
+    <app-notification *ngIf="showNotification" (close)="showNotification = false"
+      (click)="getUnreadNotificationCount()"></app-notification>
+  </div>
+</main>
+
+  </div>
+  
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 FarmFresh. All rights reserved. | Built with 🌱 in India</p>
+  </footer>
+</div>

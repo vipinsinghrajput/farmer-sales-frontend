@@ -1,0 +1,123 @@
+
+<app-consumer-navbar>
+   
+<div class="farmer-listings">
+  <div class="listings-header">
+    <h2 class="section-title">🌾 Explore Organic Farms Near You</h2>
+  </div>
+
+<!-- Filter Toggle Button -->
+<div class="text-right mb-4">
+  <button class="toggle-btn" (click)="toggleFilters()">🔍 Filter Options</button>
+</div>
+
+<!-- Filter Banner (Slide Down) -->
+<div *ngIf="showFilters" class="filter-popup">
+  <h3>🎯 Filter Products</h3>
+
+  <div class="filter-grid">
+    <div>
+      <label>Product Name</label>
+      <input type="text" [(ngModel)]="filters.name" placeholder="e.g., Wheat" />
+    </div>
+
+    <div>
+      <label>Min Price</label>
+      <input type="number" [(ngModel)]="filters.minPrice" />
+    </div>
+
+    <div>
+      <label>Max Price</label>
+      <input type="number" [(ngModel)]="filters.maxPrice" />
+    </div>
+
+    <div>
+      <label>Category</label>
+      <select [(ngModel)]="filters.category">
+        <option value="">All</option>
+        <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="btn-group">
+    <button class="apply-btn" (click)="applyFilters()">✅ Apply</button>
+    <button class="reset-btn" (click)="resetFilters()">♻️ Reset</button>
+  </div>
+</div>
+
+<!-- Success Popup -->
+<div *ngIf="showPopup" class="popup">
+  ✅ Filter applied/reset successfully!
+</div>
+
+
+
+    <div *ngFor="let farmer of farmersWithProducts"   class="farmer-card-vertical">
+      <div class="card-content">
+        
+        <h3>{{ farmer.farmName }}</h3>
+        <p class="description">{{ farmer.farmDescription }}</p>
+        <p class="address">📍 {{ farmer.farmAddress }} - {{ farmer.pincode }}</p>
+         <button class="view-all-btn" (click)="viewFarm(farmer.id)">➡️</button>
+      </div>
+<cdk-virtual-scroll-viewport itemSize="320" class="product-scroll-viewport">
+      <!-- Horizontal product slider -->
+      <div class="horizontal-slider">
+         <ng-container *ngIf="farmer.products.length > 0; else noProductCard">
+        <div class="product-card" *ngFor="let product of farmer.products">
+          <img [src]="product.images?.[0] || 'no-image-icon.png'" alt="{{ product.name }}" />
+          <h3>{{ product.name }}</h3>
+          <p class="price">₹{{ product.price }} / {{ product.unit }}</p>
+          <p class="desc">{{ product.description || 'No description available.' }}</p>
+
+          <div *ngIf="isInCart(product.id); else addButton" class="quantity-controls">
+            <button (click)="decrement(product)">−</button>
+            <span>{{ getQuantity(product.id) }}</span>
+            <button (click)="increment(product)">+</button>
+          </div>
+         <ng-template #addButton>
+  <button class="add-btn" 
+          *ngIf="product.stock > 0; else outOfStock" 
+          (click)="addToCart(product)">
+    Add to Cart
+  </button>
+</ng-template>
+
+<ng-template #outOfStock>
+  <button class="out-of-stock-btn" disabled>Out of Stock</button>
+</ng-template>
+        </div>
+        </ng-container>
+         <!-- No Product Card -->
+    <ng-template #noProductCard>
+      <div class="product-card no-product-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/4076/4076500.png" alt="No Products" style="width: 80px; height: 80px; margin-bottom: 10px;" />
+        <h3>No Products Available</h3>
+        <p class="desc">This farm has no products listed yet.</p>
+        <button class="add-btn" (click)="viewFarm(farmer.id)">👁️ View Farm</button>
+      </div>
+    </ng-template>
+      </div>
+      </cdk-virtual-scroll-viewport>
+    </div>
+</div>
+
+<!-- Confirmation Popup -->
+<div class="popup-overlay" *ngIf="showReplaceConfirm">
+  <div class="popup-box">
+    <p>⚠️ Cart contains items from another farm. Replace with this one?</p>
+    <div class="popup-buttons">
+      <button class="yes-btn" (click)="confirmReplace()">Yes</button>
+      <button class="no-btn" (click)="cancelReplace()">No</button>
+    </div>
+  </div>
+</div>
+
+<!-- Cart Banner -->
+<div class="cart-banner" *ngIf="cart.length > 0">
+  <span>{{ cart.length }} item(s) in cart</span>
+  <button class="view-cart-btn" (click)="goToCart()">View Cart</button>
+</div>
+
+</app-consumer-navbar>

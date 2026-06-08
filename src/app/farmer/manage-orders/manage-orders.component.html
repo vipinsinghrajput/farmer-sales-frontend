@@ -1,0 +1,133 @@
+<app-farmer-navbar>
+   <cdk-virtual-scroll-viewport itemSize="320" class="product-scroll-viewport">
+<div class="manage-orders-container">
+    <h2>Manage Orders</h2>
+  
+   
+      <!-- Filters -->
+<div class="filter-container">
+  <label>Status:</label>
+  <select [(ngModel)]="selectedStatus" (change)="filterOrders()">
+    <option value="">ALL</option>
+    <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+  </select>
+
+  <label>From Date:</label>
+  <input type="date" [(ngModel)]="filterFromDate" (change)="filterOrders()" />
+
+  <label>To Date:</label>
+  <input type="date" [(ngModel)]="filterToDate" (change)="filterOrders()" />
+</div>
+
+  
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+    <div *ngIf="filteredOrders.length === 0 && !errorMessage">No orders found.</div>
+  
+    <div *ngFor="let order of filteredOrders" class="order-card" >
+      <div class="order-header" (click)="toggleOrderDetails(order)">
+        <span><strong>Order ID:</strong> {{ order.id }}</span>
+        <span><strong>Date:</strong> {{ order.orderDate | date: 'short' }}</span>
+        <span><strong>Status:</strong>
+          <span [ngClass]="getBadgeClass(order.status)">
+            {{ order.status }}
+          </span>
+        </span>
+      </div>
+  
+      <div class="items" (click)="toggleOrderDetails(order)">
+        <div *ngFor="let item of order.items" class="item">
+        <span class="product-id"><strong>Product ID:</strong> {{ item.productId }}</span>
+        {{ item.productName }} (x{{ item.quantity }}) - ₹{{ item.price }}
+        </div>
+      </div>
+  
+      <div class="order-footer">
+        <strong>Total:</strong> ₹{{ order.totalAmount }}
+  
+         
+<div *ngIf="order.status == 'CONFIRMED'">
+  <label>Update Status:</label>
+  <select [ngModel]="order.status" (ngModelChange)="onStatusChange(order.id, order.status, $event)">
+    <option *ngFor="let status of statuses.slice(1)" [value]="status">{{ status }}</option>
+  </select>
+</div>
+
+<!-- Show button only if order status is confirmed -->
+<div *ngIf="order.status === 'PACKED'  ">
+  <button (click)="prepareToAssign(order.id)">Assign Delivery Person</button>
+</div>
+
+<!-- Show dropdown only if this order is being assigned -->
+<div *ngIf="assigningOrderId === order.id">
+  
+  <div *ngIf="availableDeliveryPersons.length > 0; else noPerson">
+    <label>Select Delivery Person:</label>
+    <select (change)="onPersonSelect($event, order.id)">
+      <option value="">-- Select --</option>
+      <option *ngFor="let person of availableDeliveryPersons" [value]="person.id">
+        {{ person.name }} - {{ person.mobile }} ({{ person.vehicleNumber }})
+      </option>
+    </select>
+  </div>
+
+  <!-- This will be shown if no delivery persons are available -->
+  <ng-template #noPerson>
+    <p style="color: red;">No delivery persons are available at the moment.</p>
+  </ng-template>
+
+</div>
+
+
+
+    
+<!-- <ng-template #notAuthorized>
+  <div>Not Authorized</div>
+</ng-template> -->
+<!-- Show message if status is not CONFIRMED, PENDING, or PACKED -->
+<div *ngIf="order.status !== 'CONFIRMED' && order.status !== 'PENDING' && order.status !== 'PACKED'" class="unauthorized-message">
+  <p>Not Authorized</p>
+</div>
+      </div>
+   
+
+     <!-- Expanded Details -->
+  <div *ngIf="expandedOrderId === order.id" class="expanded-details">
+    <div *ngIf="consumerDetails[order.id]">
+      <h4>Consumer Info:</h4>
+      <p><strong>ConsumerId:</strong> {{ consumerDetails[order.id]?.id }}</p>
+      <p><strong>Name:</strong> {{ consumerDetails[order.id]?.name }}</p>
+      <p><strong>Email:</strong> {{ consumerDetails[order.id]?.email }}</p>
+      <p><strong>Mobile:</strong> {{ consumerDetails[order.id]?.mobileNumber }}</p>
+    </div>
+
+    <div *ngIf="addressDetails[order.id]">
+      <h4>Delivery Address:</h4>
+      <p>{{ addressDetails[order.id]?.street }}, {{ addressDetails[order.id]?.city }},
+        {{ addressDetails[order.id]?.state }} - {{ addressDetails[order.id]?.postalCode }}</p>
+    </div>
+
+    <!-- <div *ngIf="DeliveryPersonDetails[order.id]">
+      <h4>Delivery Person Info:</h4>
+      <p>{{ DeliveryPersonDetails[order.id]?.id }}, {{ DeliveryPersonDetails[order.id]?.name }},
+        {{ DeliveryPersonDetails[order.id]?.mobail }} - {{ DeliveryPersonDetails[order.id]?.email }}</p>
+    </div> -->
+    <div *ngIf="DeliveryPersonDetails[order.id]">
+  <h4>Delivery Person Info:</h4>
+  <p><strong>ID:</strong> {{ DeliveryPersonDetails[order.id]?.id }}</p>
+  <p><strong>Name:</strong> {{ DeliveryPersonDetails[order.id]?.name }}</p>
+  <p><strong>Mobile:</strong> {{ DeliveryPersonDetails[order.id]?.mobile }}</p>
+  <p><strong>Email:</strong> {{ DeliveryPersonDetails[order.id]?.email }}</p>
+  <p><strong>Vehicle Number:</strong> {{ DeliveryPersonDetails[order.id]?.vehicleNumber }}</p>
+</div>
+
+  </div>
+</div>
+
+<div class="pagination-controls" *ngIf="totalPages > 1">
+  <button (click)="prevPage()" [disabled]="currentPage === 0">⬅️ Prev</button>
+  <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+  <button (click)="nextPage()" [disabled]="currentPage >= totalPages - 1">Next ➡️</button>
+</div>
+</div>
+</cdk-virtual-scroll-viewport>
+ </app-farmer-navbar> 

@@ -1,0 +1,211 @@
+.user-management {
+  background-color: #f9f9f9;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Heading */
+.user-management h2 {
+  font-size: 1.8rem;
+  color: #343a40;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Tabs */
+.tab-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.tab-buttons button {
+  background-color: #e9ecef;
+  color: #343a40;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.tab-buttons button.active {
+  background-color: #007bff;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.tab-buttons button:hover {
+  background-color: #ced4da;
+}
+
+/* Table Styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0,0,0,0.06);
+}
+
+thead {
+  background-color: #007bff;
+  color: white;
+}
+
+th, td {
+  padding: 0.9rem 1.2rem;
+  text-align: left;
+  border-bottom: 1px solid #dee2e6;
+  font-size: 0.95rem;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+/* Status Badges */
+.active {
+  color: green;
+  font-weight: bold;
+}
+
+.deactive {
+  color: red;
+  font-weight: bold;
+}
+
+/* Toggle Button */
+table button {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  background-color: #28a745;
+  transition: background-color 0.3s ease;
+}
+
+table button:hover {
+  background-color: #218838;
+}
+
+table button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+table td button.deactivate {
+  background-color: #dc3545;
+}
+
+table td button.deactivate:hover {
+  background-color: #c82333;
+}
+
+
+.filter-toggle {
+  text-align: right;
+  margin-bottom: 1rem;
+
+  button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+}
+
+.filter-banner {
+  background-color: #f1f9ff;
+  padding: 1rem;
+  border-left: 5px solid #007bff;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+.filter-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  input,
+  select {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    min-width: 160px;
+    font-size: 0.95rem;
+  }
+
+  button {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+  }
+
+  button[type="button"] {
+    background-color: #6c757d;
+    color: white;
+  }
+
+  button:hover {
+    opacity: 0.9;
+  }
+}
+
+
+/* Pagination Styling */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  gap: 1rem;
+}
+
+.pagination button {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination button:disabled {
+  background-color: #adb5bd;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-weight: 500;
+  color: #343a40;
+}

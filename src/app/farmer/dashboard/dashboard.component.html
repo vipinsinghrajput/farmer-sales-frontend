@@ -1,0 +1,172 @@
+
+   <div class="farmer-dashboard">
+    <!-- Top Navbar -->
+     
+    <nav class="navbar">
+      <div class="logo">🌾 Farmer Dashboard</div>
+  
+      <div class="logout">
+        <button (click)="logout()">🚪 Logout</button>
+      </div>
+    </nav>
+
+<!-- <app-farmer-notification 
+  *ngIf="showNotification"
+  (unreadCountChange)="unreadCount = $event"
+  (close)="showNotification = false"
+></app-farmer-notification> -->
+  
+    
+    <!-- Layout Wrapper -->
+    <div class="layout">
+      <!-- Sidebar Navigation -->
+      <aside class="sidebar">
+        <!-- Profile Card -->
+        <div class="profile-card">
+          <img src="/farmerp.jpg" alt="Farmer Avatar" class="avatar" />
+          <div class="profile-info">
+            <h4>{{farmerData.name}}</h4>
+            <small>Farmer</small>
+          </div>
+        </div>
+      
+        <!-- Navigation -->
+        <nav class="menu">
+          <ul>
+            <li [class.active]="active==='dashboard'" (click)="goTo('dashboard')">
+              <i class="icon home-icon"></i>
+              <span>Dashboard</span>
+            </li>
+            <li [class.active]="active==='products'" (click)="goTo('products')">
+              <i class="icon products-icon"></i>
+              <span>Products</span>
+            </li>
+            <li [class.active]="active==='orders'" (click)="goTo('orders')">
+              <i class="icon orders-icon"></i>
+              <span>Orders</span>
+            </li>
+            <li [class.active]="active==='history'" (click)="goTo('history')">
+              <i class="icon history-icon"></i>
+              <span>History</span>
+            </li>
+            <li [class.active]="active==='notifications'" (click)="goTo('notifications')">
+              <i class="icon bell-icon"></i>
+              <span>Notifications   <span 
+               *ngIf="unreadCount > 0" 
+                   class="notification-dot"
+                    title="{{unreadCount}} unread"
+                ></span></span>
+            </li>
+            <li [class.active]="active==='profile'" (click)="goTo('profile')">
+              <i class="icon bell-icon"></i>
+              <span>profile</span>
+            </li>
+          </ul>
+        </nav>
+      
+        <!-- Collapse Toggle -->
+        <button class="collapse-btn" (click)="sidebarCollapsed = !sidebarCollapsed">
+          <i class="icon toggle-icon"></i>
+        </button>
+      </aside>
+      
+  
+      <!-- Main Content Area -->
+      <main class="main-content">
+
+         <!-- Video section only on top -->
+  <div class="video-section">
+        <video autoplay muted loop id="bg-video" playsinline preload="auto">
+          <source src="/harvest.mp4" type="video/mp4" />
+        </video>
+        <div class="overlay-content">
+          <h2>Welcome, {{farmerData.name}} 🌻</h2>
+          <p>From seed to sale, manage it all in one place.</p>
+        </div>
+</div>
+      
+
+<div class="feature-section">
+  <h2 class="feature-title">🌾 Platform Highlights</h2>
+  <div class="feature-cards-container">
+    
+    <div class="feature-card farm">
+      <div class="icon">🚜</div>
+      <h3>Farm Insights</h3>
+      <p>Monitor crop health, soil conditions, and irrigation with real-time analytics.</p>
+    </div>
+
+    <div class="feature-card product">
+      <div class="icon">🛒</div>
+      <h3>Product Marketplace</h3>
+      <p>List fresh farm produce for consumers to browse and buy directly.</p>
+    </div>
+
+    <div class="feature-card consumer">
+      <div class="icon">👨‍👩‍👧‍👦</div>
+      <h3>Consumer Interaction</h3>
+      <p>Chat with consumers, get feedback, and build lasting trust.</p>
+    </div>
+
+    <div class="feature-card advisory">
+      <div class="icon">📈</div>
+      <h3>Agri-Advisory</h3>
+      <p>Access expert suggestions, tips, and weather updates for better decision-making.</p>
+    </div>
+
+  </div>
+</div>
+
+
+
+<!-- Smart Farming Tip Unified Panel -->
+<div class="smart-farming-tip">
+  <div class="tip-icon">🌿</div>
+  <div class="tip-content">
+    <div class="tip-title">Smart Farming Tip</div>
+    <div class="tip-text">
+      Use compost to enrich your soil and boost plant growth naturally!
+    </div>
+  </div>
+</div>
+
+<!-- Example of reusing -->
+<div class="smart-farming-tip">
+  <div class="tip-icon">💡</div>
+  <div class="tip-content">
+    <div class="tip-title">Crop Rotation Advice</div>
+    <div class="tip-text">
+      Rotate your crops each season to prevent soil nutrient depletion and reduce pests.
+    </div>
+  </div>
+</div>
+
+<div class="smart-farming-tip">
+  <div class="tip-icon">🌱</div>
+  <div class="tip-content">
+    <div class="tip-title">Soil Moisture Boost</div>
+    <div class="tip-text">
+      Mulching helps retain soil moisture and suppress weed growth naturally.
+    </div>
+  </div>
+</div>
+
+
+
+
+          <!-- Local Notification Panel -->
+  <div *ngIf="active === 'notifications'" class="notification-container">
+   <app-farmer-notification  *ngIf="showNotification" (close)="showNotification = false"   (click)="getUnreadNotificationCount()"></app-farmer-notification>
+  </div>
+
+  
+      </main>
+    </div>
+
+  
+  <footer class="footer">
+  <p>&copy; 2025 Farmer Sales Platform | Made with 🌿 in India</p>
+</footer>
+    
+  </div>
+  

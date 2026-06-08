@@ -1,0 +1,193 @@
+
+<app-farmer-navbar>
+
+<!-- Centered Banner Form -->
+<div *ngIf="showAddForm" class="form-overlay">
+  <div class="form-popup">
+    <h2 class="mb-3 text-center">{{ isUpdating ? 'Update Product' : 'Add New Product' }}</h2>
+
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="border p-4 rounded shadow-sm bg-light">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label>Name</label>
+          <input formControlName="name" class="form-control" placeholder="Product name">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>Unit</label>
+          <input formControlName="unit" class="form-control" placeholder="e.g. kg, liter">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>Price</label>
+          <input type="number" formControlName="price" class="form-control">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>Stock</label>
+          <input type="number" formControlName="stock" class="form-control">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>Category</label>
+          <select formControlName="category" class="form-control" required>
+            <option value="VEGETABLES">Vegetables</option>
+            <option value="FRUITS">Fruits</option>
+            <option value="GRAINS">Grains</option>
+            <option value="DAIRY">Dairy</option>
+            <option value="MEAT">Meat</option>
+            <option value="HERBS">Herbs</option>
+            <option value="SPICES">Spices</option>
+          </select>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>Description</label>
+          <textarea formControlName="description" class="form-control"></textarea>
+        </div>
+        <div class="col-12 mb-3">
+          <label>Product Images</label>
+          <input type="file" (change)="onFileChange($event)" multiple class="form-control" #fileInput>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <button class="btn btn-primary" type="submit" [disabled]="loading">
+          <span *ngIf="!loading">{{ isUpdating ? 'Update Product' : 'Add Product' }}</span>
+          <span *ngIf="loading">
+            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            Working...
+          </span>
+        </button>
+        <button class="btn btn-secondary" type="button" (click)="resetForm()">Reset</button>
+        <button class="btn btn-danger" type="button" (click)="showAddForm = false">Close</button>
+      </div>
+    </form>
+  </div>
+   <div *ngIf="responseMessage" class="mt-3 alert alert-info">
+    {{ responseMessage }}
+  </div>
+</div>
+
+
+ 
+
+
+  <!-- <hr class="my-2"> -->
+
+
+<!-- Filter Toggle Button -->
+<div class="text-right mb-4">
+  <button class="toggle-btn" (click)="toggleFilters()">🔍 Filter Options</button>
+
+  <!-- Button -->
+<button (click)="showAddForm = true" class="btn btn-success">➕ Add New Product</button>
+
+</div>
+
+
+
+<!-- Filter Banner (Slide Down) -->
+<div *ngIf="showFilters" class="filter-popup">
+  <h3>🎯 Filter Products</h3>
+
+  <div class="filter-grid">
+    <div>
+      <label>Product Name</label>
+      <input type="text" [(ngModel)]="filters.name" placeholder="e.g., Wheat" />
+    </div>
+
+    <div>
+      <label>Min Price</label>
+      <input type="number" [(ngModel)]="filters.minPrice" />
+    </div>
+
+    <div>
+      <label>Max Price</label>
+      <input type="number" [(ngModel)]="filters.maxPrice" />
+    </div>
+
+    <div>
+      <label>Category</label>
+      <select [(ngModel)]="filters.category">
+        <option value="">All</option>
+        <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="btn-group">
+    <button class="apply-btn" (click)="applyFilters()">✅ Apply</button>
+    <button class="reset-btn" (click)="resetFilters()">♻️ Reset</button>
+  </div>
+</div>
+
+<!-- Success Popup -->
+<div *ngIf="showPopup" class="popup">
+  ✅ Filter applied/reset successfully!
+</div>  
+
+<!-- Search by ID -->
+<div class="product-id-search-bar">
+
+   <input
+    type="text"
+    [formControl]="searchControl"
+    placeholder="🔍 Search by product name"
+    class="search-input"
+  />
+</div>
+
+<cdk-virtual-scroll-viewport itemSize="320" class="product-scroll-viewport">
+<!-- Product Grid -->
+<div *ngIf="products && products.length > 0; else noProducts" class="product-grid">
+  <div class="product-card" *ngFor="let p of products"  [attr.id]="'product-' + p.id">
+    <div class="card-header">
+      <h3 class="product-title">{{ p.name }}</h3>
+      <p class="product-id">ID: <strong>{{ p.id }}</strong></p>
+    </div>
+
+    <div class="price-section">
+      <p class="price">₹{{ p.price }} <span class="unit">/ {{ p.unit }}</span></p>
+    </div>
+
+    <p class="stock-category">Stock: {{ p.stock }} | Category: {{ p.category }}</p>
+    <p class="farmer">👨‍🌾 {{ p.farmerName }}</p>
+
+    <div class="images">
+      <img *ngFor="let img of p.images" [src]="img" [alt]="p.name" />
+    </div>
+
+    <div class="actions">
+      <button class="delete-btn" (click)="deleteProduct(p.id)">❌ Delete</button>
+      <button class="update-btn" (click)="updateProduct(p)">✏️ Update</button>
+    </div>
+
+    <p *ngIf="errorMsggetall" class="error-text">{{ errorMsggetall }}</p>
+  </div>
+</div>
+
+ <div class="pagination-controls" *ngIf="totalPages > 1">
+  <button 
+    class="page-btn" 
+    (click)="changePage(currentPage - 1)" 
+    [disabled]="currentPage === 0">
+    ⏮ Prev
+  </button>
+
+  <button
+    class="page-btn"
+    *ngFor="let page of [].constructor(totalPages); let i = index"
+    [class.active]="i === currentPage"
+    (click)="changePage(i)">
+    {{ i + 1 }}
+  </button>
+
+  <button 
+    class="page-btn" 
+    (click)="changePage(currentPage + 1)" 
+    [disabled]="currentPage === totalPages - 1">
+    Next ⏭
+  </button>
+</div>
+<!-- Fallback Template -->
+<ng-template #noProducts>
+  <p class="no-products">🚫 No products found.</p>
+</ng-template>
+</cdk-virtual-scroll-viewport>
+</app-farmer-navbar>

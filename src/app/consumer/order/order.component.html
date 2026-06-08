@@ -1,0 +1,93 @@
+<app-consumer-navbar>
+<div class="manage-orders-container">
+    <h2>Manage Orders</h2>
+  
+    <!-- Filters -->
+<div class="filter-container">
+  <label>Status:</label>
+  <select [(ngModel)]="selectedStatus" (change)="filterOrders()">
+    <option value="">ALL</option>
+    <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+  </select>
+
+  <label>From Date:</label>
+  <input type="date" [(ngModel)]="filterFromDate" (change)="filterOrders()" />
+
+  <label>To Date:</label>
+  <input type="date" [(ngModel)]="filterToDate" (change)="filterOrders()" />
+</div>
+
+  
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+    <div *ngIf="filteredOrders.length === 0 && !errorMessage">No orders found.</div>
+  
+    <div *ngFor="let order of filteredOrders" class="order-card" >
+      <div class="order-header" (click)="toggleOrderDetails(order)" >
+        <span><strong>Order ID:</strong> {{ order.id }}</span>
+        <span><strong>Date:</strong> {{ order.orderDate | date: 'short' }}</span>
+        <span><strong>Status:</strong>
+          <span [ngClass]="getBadgeClass(order.status)">
+            {{ order.status }}
+          </span>
+        </span>
+      </div>
+  
+      <div class="items" (click)="toggleOrderDetails(order)">
+        <div *ngFor="let item of order.items" class="item">
+        <span class="product-id"><strong>Product ID:</strong> {{ item.productId }}</span>
+        {{ item.productName }} (x{{ item.quantity }}) - ₹{{ item.price }}
+        </div>
+      </div>
+  
+      <div class="order-footer">
+        <strong>Total:</strong> ₹{{ order.totalAmount }}
+  
+         
+<div  *ngIf="order.status === 'PENDING' || order.status === 'CONFIRMED' || order.status === 'PACKED' ">
+  <!-- Cancel Order Button -->
+   
+  <button *ngIf="!showCancelReasonMap[order.id]" (click)="showCancelReasonMap[order.id] = true">Cancel</button>
+ <!-- Reason Dropdown (Visible Only When Cancel Button is Clicked) -->
+  <div *ngIf="showCancelReasonMap[order.id]" style="margin-top: 10px;">
+    <label>Select Reason for Cancellation:</label>
+    <select [(ngModel)]="cancelReasonMap[order.id]">
+      <option *ngFor="let reason of cancelReasons" [value]="reason">{{ reason }}</option>
+    </select>
+    <button (click)="cancelOrder(order.id, cancelReasonMap[order.id])" [disabled]="!cancelReasonMap[order.id]">Submit</button>
+  </div>
+
+</div>
+
+</div>
+   
+
+     <!-- Expanded Details -->
+  <div *ngIf="expandedOrderId === order.id" class="expanded-details">
+    <div *ngIf="farmerDetails[order.id]">
+      <h4>Farmer Info:</h4>
+      <p><strong>FarmerId:</strong> {{ farmerDetails[order.id]?.id }}</p>
+      <p><strong>Name:</strong> {{ farmerDetails[order.id]?.name }}</p>
+      <p><strong>Email:</strong> {{ farmerDetails[order.id]?.email }}</p>
+      <p><strong>Mobile:</strong> {{ farmerDetails[order.id]?.mobileNumber }}</p>
+    </div>
+
+
+    <div *ngIf="DeliveryPersonDetails[order.id]">
+  <h4>Delivery Person Info:</h4>
+  <p><strong>ID:</strong> {{ DeliveryPersonDetails[order.id]?.id }}</p>
+  <p><strong>Name:</strong> {{ DeliveryPersonDetails[order.id]?.name }}</p>
+  <p><strong>Mobile:</strong> {{ DeliveryPersonDetails[order.id]?.mobile }}</p>
+  <p><strong>Email:</strong> {{ DeliveryPersonDetails[order.id]?.email }}</p>
+  <p><strong>Vehicle Number:</strong> {{ DeliveryPersonDetails[order.id]?.vehicleNumber }}</p>
+</div>
+
+  </div>
+</div>
+<div class="pagination-controls" *ngIf="totalPages > 1">
+  <button (click)="prevPage()" [disabled]="currentPage === 0">⬅️ Prev</button>
+  <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+  <button (click)="nextPage()" [disabled]="currentPage >= totalPages - 1">Next ➡️</button>
+</div>
+
+</div>
+  </app-consumer-navbar>

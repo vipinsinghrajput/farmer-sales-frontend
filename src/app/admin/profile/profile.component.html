@@ -1,0 +1,32 @@
+<app-admin-navbar>
+<div class="profile-container">
+  <!-- View Mode -->
+  <div *ngIf="adminData && !editMode">
+    <h2>My Profile</h2>
+
+    <div class="profile-field"><strong>Name:</strong> {{ adminData.name }}</div>
+    <div class="profile-field"><strong>Email:</strong> {{ adminData.email }}</div>
+    <button (click)="enableEdit()">Update Profile</button>
+  </div>
+
+  <!-- Edit Mode -->
+  <div *ngIf="editMode && profileForm">
+    <h2>Edit Profile</h2>
+
+    <form [formGroup]="profileForm" (ngSubmit)="onUpdate()">
+      <label>Name:</label>
+      <input formControlName="name" type="text" />
+
+
+      <div class="button-group">
+        <button type="submit" [disabled]="profileForm.invalid">Save Changes</button>
+        <button type="button" (click)="cancelEdit()" class="cancel-btn">Cancel</button>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+    </form>
+  </div>
+</div>
+</app-admin-navbar>

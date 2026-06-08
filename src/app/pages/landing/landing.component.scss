@@ -1,0 +1,14 @@
+a.container {
+    max-width: 600px;
+  }
+  
+  h1 {
+    color: #2c3e50;
+  }
+  .card {
+    transition: transform 0.2s ease;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  

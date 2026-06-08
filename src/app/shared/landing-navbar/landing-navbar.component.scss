@@ -1,0 +1,98 @@
+.navbar {
+    background-color: #2f855a;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  
+  .nav-links li {
+    position: relative;
+  }
+  
+  .nav-links a, .nav-links span {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  
+  .nav-links a:hover, .nav-links span:hover {
+    color: #f6e05e;
+  }
+  
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #3c9c73;
+    padding: 0.5rem;
+    border-radius: 6px;
+    top: 120%;
+    left: 0;
+    min-width: 140px;
+    z-index: 999;
+  }
+  
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+  
+  .dropdown-menu li {
+    padding: 0.5rem 1rem;
+  }
+  
+  .dropdown-menu li:hover {
+    background-color: #48bb78;
+  }
+  
+  .menu-icon {
+    display: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+  }
+  
+  #menu-toggle {
+    display: none;
+  }
+  
+  @media (max-width: 768px) {
+    .nav-links {
+      flex-direction: column;
+      position: absolute;
+      top: 65px;
+      left: 0;
+      width: 100%;
+      background-color: #2f855a;
+      display: none;
+    }
+  
+    #menu-toggle:checked + .menu-icon + .nav-links {
+      display: flex;
+    }
+  
+    .menu-icon {
+      display: block;
+    }
+  
+    .dropdown-menu {
+      position: static;
+    }
+  }
+  

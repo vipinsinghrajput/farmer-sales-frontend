@@ -1,0 +1,178 @@
+.order-history-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', sans-serif;
+  
+    h2 {
+      text-align: center;
+      margin-bottom: 24px;
+      color: #2e7d32;
+    }
+  
+    .error {
+      color: #b71c1c;
+      background-color: #ffebee;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+  
+    .order-card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      padding: 16px;
+  
+      .order-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        font-weight: 600;
+        color: #555;
+      }
+  
+      .items-list {
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+        padding: 10px 0;
+  
+        .item {
+          display: flex;
+          justify-content: space-between;
+          padding: 5px 0;
+          font-size: 15px;
+        }
+      }
+  
+      .order-footer {
+        text-align: right;
+        margin-top: 10px;
+        font-weight: 600;
+        color: #2e7d32;
+      }
+    }
+  }
+  .filter-section {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  
+    label {
+      font-weight: 600;
+    }
+  
+    select {
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+  }
+  .filter-section {
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  
+    label {
+      font-weight: 600;
+    }
+  
+    select,
+    input[type="date"] {
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+  }
+   .pagination-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.pagination-controls button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #4caf50;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pagination-controls button[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+.filter-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 1rem;
+  background-color: #f9fafb;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1rem;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.filter-container label {
+  font-weight: 600;
+  color: #333;
+  margin-right: 0.5rem;
+}
+
+.filter-container select,
+.filter-container input[type="date"] {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  min-width: 160px;
+}
+
+.filter-container select:focus,
+.filter-container input[type="date"]:focus {
+  border-color: #3f51b5;
+  box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.2);
+}
+
+@media (max-width: 600px) {
+  .filter-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-container label {
+    margin-right: 0;
+  }
+
+  .filter-container select,
+  .filter-container input[type="date"] {
+    width: 100%;
+  }
+}
+
+.product-scroll-viewport {
+  height: 60vh; /* Adjust if navbar has height */
+  width: 100%;
+  padding: 21rem;
+  box-sizing: border-box;
+  overflow: auto;
+}

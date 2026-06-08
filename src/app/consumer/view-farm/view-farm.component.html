@@ -1,0 +1,116 @@
+<!-- <div class="product-container" *ngIf="products.length > 0 ; else productList">
+  <div class="product-card" *ngFor="let product of products">
+    <img [src]="product.images?.[0] || 'https://via.placeholder.com/300'" alt="{{ product.name }}" />
+
+    <div class="product-info">
+      <h3>{{ product.name }}</h3>
+      <p class="price">₹{{ product.price }} / {{ product.unit }}</p>
+      <p class="desc">{{ product.description }}</p>
+      <p class="farmer">By: {{ product.farmerName }}</p>
+    </div>
+
+    <div class="action-buttons">
+      <button *ngIf="!isInCart(product.id)" (click)="addToCart(product)">
+        Add to Cart
+      </button>
+      <button *ngIf="isInCart(product.id)" routerLink="/view-cart">
+        View Cart
+      </button>
+    </div>
+  </div>
+</div>
+<ng-template #productList>
+      <p class="text-center text-gray-500 mt-10">No products available for this farm.</p>
+</ng-template> -->
+
+<app-consumer-navbar>
+
+<div class="farm-container">
+  <h2 class="title">🌾 {{ farmName }}'s Products</h2>
+
+ <!-- 🌿 Filter Section -->
+<form (submit)="applyFilters()" class="filter-form">
+  <input type="text" [(ngModel)]="filters.name" name="name" placeholder="Search by name" />
+
+  <input type="number" [(ngModel)]="filters.minPrice" name="minPrice" placeholder="Min Price" />
+  <input type="number" [(ngModel)]="filters.maxPrice" name="maxPrice" placeholder="Max Price" />
+
+  <select [(ngModel)]="filters.category" name="category">
+    <option value="">All Categories</option>
+    <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+  </select>
+
+  <button type="submit">🔍 Apply Filters</button>
+</form>
+
+<cdk-virtual-scroll-viewport itemSize="320" class="product-scroll-viewport">
+<div  *ngIf="products && products.length > 0; else noProducts">
+  
+  <div class="product-grid">
+    
+    <div class="product-card" *ngFor="let product of products">
+      <!-- <img [src]="product.productimageUrl" alt="Product Image" /> -->
+        <img [src]="product.images?.[0] || 'no-image-icon.png'" alt="{{ product.name }}" />
+
+          <h3>{{ product.name }}</h3>
+      <p class="price">₹{{ product.price }} / {{ product.unit }}</p>
+      <p class="desc">{{ product.description  || 'No description available for this product.' }}</p>
+
+ <div *ngIf="isInCart(product.id); else addButton" class="quantity-controls">
+  <button (click)="decrement(product)">−</button>
+  <span>{{ getQuantity(product.id) }}</span>
+  <button (click)="increment(product)">+</button>
+</div>
+
+  <ng-template #addButton>
+  <button class="add-btn" 
+          *ngIf="product.stock > 0; else outOfStock" 
+          (click)="addToCart(product)">
+    Add to Cart
+  </button>
+</ng-template>
+
+<ng-template #outOfStock>
+  <button class="out-of-stock-btn" disabled>Out of Stock</button>
+</ng-template>
+    </div>
+
+  </div>
+
+  <div class="pagination-controls" *ngIf="totalPages > 1">
+  <button 
+    class="page-btn" 
+    (click)="changePage(currentPage - 1)" 
+    [disabled]="currentPage === 0">
+    ⏮ Prev
+  </button>
+
+  <button
+    class="page-btn"
+    *ngFor="let page of [].constructor(totalPages); let i = index"
+    [class.active]="i === currentPage"
+    (click)="changePage(i)">
+    {{ i + 1 }}
+  </button>
+
+  <button 
+    class="page-btn" 
+    (click)="changePage(currentPage + 1)" 
+    [disabled]="currentPage === totalPages - 1">
+    Next ⏭
+  </button>
+</div>
+  </div>
+  </cdk-virtual-scroll-viewport>
+    <ng-template #noProducts>
+    <div class="no-products">
+      <p>🚫 No products available in this farm right now.</p>
+    </div>
+  </ng-template>
+
+  <div class="cart-banner" *ngIf="cart.length > 0">
+    <span>{{ cart.length }} item(s) in cart</span>
+    <button class="view-cart-btn" (click)="goToCart()">View Cart</button>
+  </div>
+</div>
+</app-consumer-navbar>

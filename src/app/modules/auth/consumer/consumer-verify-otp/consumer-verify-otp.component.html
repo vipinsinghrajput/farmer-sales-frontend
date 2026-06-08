@@ -1,0 +1,34 @@
+<!-- 
+<form (ngSubmit)="verifyOtp()" #form="ngForm">
+    <label for="otp">Enter OTP:</label>
+    <input type="text" id="otp" name="otp" [(ngModel)]="otpData.otp" required />
+    <button type="submit">Verify OTP</button>
+    <p *ngIf="errorMsg" class="error-text">{{ errorMsg }}</p>
+  </form> -->
+
+  <div class="container">
+    <!-- Success Message -->
+    <div class="success-message" *ngIf="successMsg">
+      <div class="alert alert-success">
+        {{ successMsg }}
+      </div>
+    </div>
+  
+    <div class="form-container">
+      <h2 class="heading">Verify OTP</h2>
+  
+      <!-- Error Message -->
+      <div #errorRef *ngIf="errorMsg" class="error-msg" tabindex="-1">
+        {{ errorMsg }}
+      </div>
+  
+      <!-- OTP Form -->
+      <form (ngSubmit)="verifyOtp()" #form="ngForm" class="otp-form">
+        <label for="otp">Enter OTP</label>
+        <input type="text" id="otp" name="otp" [(ngModel)]="otpData.otp" required class="otp-input" />
+        
+        <button type="submit" [disabled]="form.invalid" class="submit-btn">Verify OTP</button>
+      </form>
+    </div>
+  </div>
+  

@@ -1,0 +1,102 @@
+<div class="register-container">
+    <div class="register-box">
+      <h2>Farmer Registration</h2>
+  
+     
+  <!-- Error Message -->
+  <div #errorRef *ngIf="errorMsg" class="error-msg">
+    {{ errorMsg }}
+  </div>
+
+      <form (ngSubmit)="registerFarmer()" #form="ngForm" class="register-form">
+  
+        <!-- Full Name -->
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" name="name" [(ngModel)]="farmerData.name" required #name="ngModel" />
+          <div class="error" *ngIf="name.invalid && name.touched">Full Name is required.</div>
+        </div>
+  
+        <!-- Mobile Number -->
+        <div class="form-group">
+          <label>Mobile Number</label>
+          <input type="text" name="mobileNumber" [(ngModel)]="farmerData.mobileNumber" required pattern="^[0-9]{10}$" #mobile="ngModel" />
+          <div class="error" *ngIf="mobile.invalid && mobile.touched">
+            Valid 10-digit Mobile Number is required.
+          </div>
+        </div>
+  
+        <!-- Email -->
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" name="email" [(ngModel)]="farmerData.email" required email #email="ngModel" />
+          <div class="error" *ngIf="email.invalid && email.touched">Valid Email is required.</div>
+        </div>
+  
+        <!-- Password -->
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" name="password" [(ngModel)]="farmerData.password" required minlength="6" #password="ngModel" />
+          <div class="error" *ngIf="password.invalid && password.touched">Password must be at least 6 characters.</div>
+        </div>
+  
+        <!-- Farm Name -->
+        <div class="form-group">
+          <label>Farm Name</label>
+          <input type="text" name="farmName" [(ngModel)]="farmerData.farmName" required #farmName="ngModel" />
+          <div class="error" *ngIf="farmName.invalid && farmName.touched">Farm Name is required.</div>
+        </div>
+  
+        <!-- Farm Address -->
+        <div class="form-group">
+          <label>Farm Address</label>
+          <input type="text" name="farmAddress" [(ngModel)]="farmerData.farmAddress" required #farmAddress="ngModel" />
+          <div class="error" *ngIf="farmAddress.invalid && farmAddress.touched">Farm Address is required.</div>
+        </div>
+  
+       <div class="form-group">
+          <label>Farm City</label>
+          <input type="text" name="farmCity" [(ngModel)]="farmerData.farmCity" required #farmCity="ngModel" />
+          <div class="error" *ngIf="farmCity.invalid && farmCity.touched">Farm City is required.</div>
+        </div>
+
+         <div class="form-group">
+          <label>Farm State</label>
+          <input type="text" name="farmState" [(ngModel)]="farmerData.farmState" required #farmState="ngModel" />
+          <div class="error" *ngIf="farmState.invalid && farmState.touched">Farm State is required.</div>
+        </div>
+  
+       <div class="form-group">
+          <label>Farm Country</label>
+          <input type="text" name="farmCountry" [(ngModel)]="farmerData.farmCountry" required #farmCountry="ngModel" />
+          <div class="error" *ngIf="farmCountry.invalid && farmCountry.touched">Farm Country is required.</div>
+        </div>
+
+        <!-- Pincode -->
+        <div class="form-group">
+          <label>Pincode</label>
+          <input type="text" name="pincode" [(ngModel)]="farmerData.pincode" required pattern="^[0-9]{6}$" #pincode="ngModel" />
+          <div class="error" *ngIf="pincode.invalid && pincode.touched">Valid 6-digit Pincode is required.</div>
+        </div>
+  
+        <!-- Farm Description -->
+        <div class="form-group">
+          <label>Farm Description</label>
+          <textarea name="farmDescription" [(ngModel)]="farmerData.farmDescription" required #farmDescription="ngModel"></textarea>
+          <div class="error" *ngIf="farmDescription.invalid && farmDescription.touched">Description is required.</div>
+        </div>
+  
+        <!-- Farm License Number -->
+        <div class="form-group">
+          <label>Farm License Number</label>
+          <input type="text" name="farmLicenseNumber" [(ngModel)]="farmerData.farmLicenseNumber" required #license="ngModel" />
+          <div class="error" *ngIf="license.invalid && license.touched">License Number is required.</div>
+        </div>
+  
+        <button type="submit" [disabled]="form.invalid" class="register-button">Register</button>
+      </form>
+    </div>
+  </div>
+ 
+  
+  

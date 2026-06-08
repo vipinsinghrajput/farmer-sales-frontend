@@ -1,0 +1,45 @@
+<!-- consumer-dashboard.component.html -->
+<div class="dashboard-container">
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">🥗 FarmFresh - Consumer Dashboard</div>
+    <div class="logout">
+      <button (click)="logout()">🚪 Logout</button>
+    </div>
+  </nav>
+
+  <!-- Main Layout -->
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="profile-card"  >
+        <!-- <h4>{{ consumerData.name}}</h4> -->
+        <small>🌾 Consumer</small>
+      </div>
+
+      <ul class="menu">
+        <li [class.active]="active==='dashboard'" (click)="goTo('dashboard')">🏠 Home</li>
+        <li [class.active]="active==='product'" (click)="goTo('product')">🛍️ Product</li>
+        <li [class.active]="active==='cart'" (click)="goTo('cart')">🛒View Cart</li>
+        <li [class.active]="active==='orders'" (click)="goTo('orders')">📦 Orders</li>
+        <li [class.active]="active==='orders-history'" (click)="goTo('orders-history')">🕘 Order History</li>
+        <!-- <li [class.active]="active==='address'" (click)="goTo('address')">📍 Addresses</li> -->
+        <li [class.active]="active==='notification'" (click)="goTo('notification')">
+          🔔 Notifications
+          <span *ngIf="unreadCount > 0" class="dot"></span>
+        </li>
+        <li [class.active]="active==='profile'" (click)="goTo('profile')">🙍‍♂️ Profile</li>
+      </ul>
+    </aside>
+
+
+
+      <section class="main-content">
+      <ng-content></ng-content>
+       <!-- Notification Section -->
+  <div *ngIf="active === 'notification'" class="notification-container">
+    <app-notification *ngIf="showNotification" (close)="showNotification = false"
+      (click)="getUnreadNotificationCount()"></app-notification>
+  </div>
+    </section>
+</div>

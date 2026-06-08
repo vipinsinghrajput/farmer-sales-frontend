@@ -1,0 +1,52 @@
+<app-consumer-navbar>
+<div class="order-history-container">
+    <h2>Orders History</h2>
+  
+    <!-- Filters -->
+<div class="filter-container">
+  <label>Status:</label>
+  <select [(ngModel)]="selectedStatus" (change)="filterOrders()">
+    <option value="">ALL</option>
+    <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+  </select>
+
+  <label>From Date:</label>
+  <input type="date" [(ngModel)]="filterFromDate" (change)="filterOrders()" />
+
+  <label>To Date:</label>
+  <input type="date" [(ngModel)]="filterToDate" (change)="filterOrders()" />
+</div>
+
+  
+    <!-- Error -->
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  
+    <!-- No orders -->
+    <div *ngIf="filteredOrders.length === 0 && !errorMessage">No orders found for selected filters.</div>
+  
+    <!-- Orders -->
+    <div *ngFor="let order of filteredOrders" class="order-card">
+      <div class="order-header">
+        <span><strong>Order ID:</strong> {{ order.id }}</span>
+        <span><strong>Status:</strong> {{ order.status }}</span>
+        <span><strong>Date:</strong> {{ order.orderDate | date: 'medium' }}</span>
+      </div>
+  
+      <div class="items-list">
+        <div class="item" *ngFor="let item of order.items">
+          <span>{{ item.productName }} (x{{ item.quantity }})</span>
+          <span>₹{{ item.price }}</span>
+        </div>
+      </div>
+  
+      <div class="order-footer">
+        <strong>Total: ₹{{ order.totalAmount }}</strong>
+      </div>
+    </div>
+    <div class="pagination-controls" *ngIf="totalPages > 1">
+  <button (click)="prevPage()" [disabled]="currentPage === 0">⬅️ Prev</button>
+  <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+  <button (click)="nextPage()" [disabled]="currentPage >= totalPages - 1">Next ➡️</button>
+</div>
+  </div>
+  </app-consumer-navbar>

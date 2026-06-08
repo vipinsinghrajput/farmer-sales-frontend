@@ -1,0 +1,77 @@
+
+   <div class="farmer-dashboard">
+    <!-- Top Navbar -->
+     
+    <nav class="navbar">
+      <div class="logo">🌾 Farmer Dashboard</div>
+  
+      <div class="logout">
+        <button (click)="logout()">🚪 Logout</button>
+      </div>
+    </nav>
+
+    <!-- Layout Wrapper -->
+    <div class="layout">
+      <!-- Sidebar Navigation -->
+      <aside class="sidebar">
+        <!-- Profile Card -->
+        <div class="profile-card">
+          <img src="/farmerp.jpg" alt="Farmer Avatar" class="avatar" />
+          <div class="profile-info">
+            <h4>{{farmerData?.name}}</h4>
+            <small>Farmer</small>
+          </div>
+        </div>
+      
+        <!-- Navigation -->
+        <nav class="menu">
+          <ul>
+            <li [class.active]="active==='dashboard'" (click)="goTo('dashboard')">
+              <i class="icon home-icon"></i>
+              <span>Dashboard</span>
+            </li>
+            <li [class.active]="active==='products'" (click)="goTo('products')">
+              <i class="icon products-icon"></i>
+              <span>Products</span>
+            </li>
+            <li [class.active]="active==='orders'" (click)="goTo('orders')">
+              <i class="icon orders-icon"></i>
+              <span>Orders</span>
+            </li>
+            <li [class.active]="active==='history'" (click)="goTo('history')">
+              <i class="icon history-icon"></i>
+              <span>History</span>
+            </li>
+            <li [class.active]="active==='notifications'" (click)="goTo('notifications')">
+              <i class="icon bell-icon"></i>
+              <span>Notifications   <span 
+               *ngIf="unreadCount > 0" 
+                   class="notification-dot"
+                    title="{{unreadCount}} unread"
+                ></span></span>
+            </li>
+            <li [class.active]="active==='profile'" (click)="goTo('profile')">
+              <i class="icon bell-icon"></i>
+              <span>profile</span>
+            </li>
+          </ul>
+        </nav>
+      
+        <!-- Collapse Toggle -->
+        <button class="collapse-btn" (click)="sidebarCollapsed = !sidebarCollapsed">
+          <i class="icon toggle-icon"></i>
+        </button>
+      </aside>
+      
+  
+      <!-- Main Content Area -->
+      <main class="main-content">
+  <ng-content></ng-content>
+          <!-- Local Notification Panel -->
+  <div *ngIf="active === 'notifications'" class="notification-container">
+   <app-farmer-notification  *ngIf="showNotification" (close)="showNotification = false"   (click)="getUnreadNotificationCount()"></app-farmer-notification>
+  </div>
+      </main>
+    </div>
+  </div>
+  

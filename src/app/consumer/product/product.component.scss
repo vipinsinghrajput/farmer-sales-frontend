@@ -1,0 +1,278 @@
+.farmer-card-vertical {
+  position: relative;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+
+
+.view-all-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.view-all-btn:hover {
+  transform: scale(1.1);
+}
+
+  .horizontal-slider {
+    display: flex;
+    gap: 0.8rem;
+    overflow-x: auto;
+    padding-bottom: 0.3rem;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+
+    .product-card {
+      width: 180px;
+      height: 300px;
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0.8rem;
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      text-align: center;
+
+      img {
+        width: 100%;
+        height: 100px;
+        object-fit: fill;
+        border-radius: 6px;
+      }
+
+      h3 {
+        font-size: 1rem;
+        margin: 0.4rem 0;
+        min-height: 2rem;
+      }
+
+      .price {
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 0.3rem;
+      }
+
+      .desc {
+        font-size: 0.8rem;
+        color: #555;
+        min-height: 2.5rem;
+        overflow: hidden;
+      }
+
+      .add-btn,
+      .quantity-controls {
+        margin-top: auto;
+      }
+
+      .add-btn,
+      .quantity-controls button {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.85rem;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+
+      .quantity-controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+      }
+    }
+  }
+}
+.out-of-stock-btn {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+
+.cart-banner {
+    position: fixed;
+    bottom: 0;
+    left: 221px;
+    right: 0;
+    background-color: #10b981;
+    color: white;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    font-size: 16px;
+
+ 
+  
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex; justify-content: center; align-items: center;
+  z-index: 1000;
+}
+
+.popup-box {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 300px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
+}
+
+.yes-btn, .no-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.yes-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.no-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+
+.farmer-listings {
+  max-height: 85vh;       /* or any height you prefer */
+  overflow-y: auto;       /* vertical scrollbar */
+  padding: 1rem;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+.product-scroll-viewport {
+  height: 45vh; /* Adjust if navbar has height */
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+/* Filter toggle button */
+.toggle-btn {
+  background-color: #388e3c;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.toggle-btn:hover {
+  background-color: #2e7d32;
+}
+
+/* Filter popup container */
+.filter-popup {
+  background-color: #f1f8e9;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-bottom: 1rem;
+  animation: slideDown 0.3s ease-in-out;
+}
+
+/* Grid layout */
+.filter-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  margin-top: 1rem;
+}
+
+.filter-popup input,
+.filter-popup select {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* Button group */
+.btn-group {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.apply-btn, .reset-btn {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.apply-btn {
+  background-color: #1976d2;
+  color: white;
+}
+.reset-btn {
+  background-color: #757575;
+  color: white;
+}
+
+/* Popup message */
+.popup {
+  background-color: #4caf50;
+  color: white;
+  padding: 0.7rem 1.5rem;
+  text-align: center;
+  border-radius: 8px;
+  font-weight: bold;
+  margin-top: 10px;
+  animation: fadeInOut 3s ease-in-out forwards;
+}
+
+/* Animations */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; display: none; }
+}
+
+
+
+

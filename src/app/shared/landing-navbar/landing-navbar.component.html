@@ -1,0 +1,36 @@
+<nav class="navbar">
+    <div class="navbar-brand">
+      <span class="logo">🌾  Farmer Market</span>
+    </div>
+  
+    <input type="checkbox" id="menu-toggle" />
+    <label for="menu-toggle" class="menu-icon">&#9776;</label>
+  
+    <ul class="nav-links">
+      <li><a routerLink="/">Home</a></li>
+      <li><a routerLink="/about">About</a></li>
+      <li><a routerLink="/contact">Contact</a></li>
+  
+      <li class="dropdown">
+        <span>Login ▼</span>
+        <ul class="dropdown-menu">
+          <li><a routerLink="/auth/farmer/login">Farmer</a></li>
+          <li><a routerLink="/auth/consumer/login">Consumer</a></li>
+          <li><a routerLink="/auth/admin/login">Admin</a></li>
+           <li><a routerLink="/auth/deliveryPerson/login">deliveryPerson</a></li>
+        </ul>
+      </li>
+  
+      <li class="dropdown">
+        <span>Register ▼</span>
+        <ul class="dropdown-menu">
+          <li><a routerLink="/auth/farmer/register">Farmer</a></li>
+          <li><a routerLink="/auth/consumer/register">Consumer</a></li>
+          <li><a routerLink="/auth/deliveryPerson/register">deliveryPerson</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+  
+
+  

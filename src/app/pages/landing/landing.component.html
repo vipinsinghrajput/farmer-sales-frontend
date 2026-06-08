@@ -1,0 +1,72 @@
+<!-- 
+<button (click)="goToFarmerRegister()" class="btn btn-success">
+    Register as Farmer
+  </button>
+
+  <button (click)="goToFarmerLogin()"  class="btn btn-success">Farmer Login</button>
+
+  <button (click)="goToConsumerRegister()" class="btn btn-success">
+    Register as Consumer
+  </button>
+
+  <button (click)="goToConsumerLogin()"  class="btn btn-success">Consumer Login</button>
+
+  <button (click)="goToAdminRegister()" class="btn btn-success">
+    Register as Admin
+  </button>
+
+  <button (click)="goToAdminLogin()"  class="btn btn-success">Admin Login</button>
+
+  
+
+  <div class="container text-center mt-5">
+    <h1 class="mb-4">Welcome to Farmer-to-Consumer Sales Platform</h1>
+    <p class="mb-5">Connecting farmers directly to consumers with transparency and trust.</p>
+   -->
+
+   <app-landing-navbar></app-landing-navbar>
+
+
+   <div class="container mt-5">
+    <div class="text-center mb-5">
+      <h1 class="display-4">🌾 Farmer-to-Consumer Sales Platform</h1>
+      <p class="lead">Connecting farmers directly to consumers with transparency, trust, and technology.</p>
+    </div>
+  
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <!-- Farmer Section -->
+      <div class="col">
+        <div class="card h-100 shadow rounded-4 text-center p-4">
+          <h3 class="mb-3">👨‍🌾 Farmer</h3>
+          <button (click)="goToFarmerRegister()" class="btn btn-outline-success mb-2 w-100">
+            Register as Farmer
+          </button>
+          <button (click)="goToFarmerLogin()" class="btn btn-success w-100">Farmer Login</button>
+        </div>
+      </div>
+  
+      <!-- Consumer Section -->
+      <div class="col">
+        <div class="card h-100 shadow rounded-4 text-center p-4">
+          <h3 class="mb-3">🛒 Consumer</h3>
+          <button (click)="goToConsumerRegister()" class="btn btn-outline-primary mb-2 w-100">
+            Register as Consumer
+          </button>
+          <button (click)="goToConsumerLogin()" class="btn btn-primary w-100">Consumer Login</button>
+        </div>
+      </div>
+  
+      <!-- DeliveryPerson Section -->
+      <div class="col">
+        <div class="card h-100 shadow rounded-4 text-center p-4">
+          <h3 class="mb-3">🛠️ DeliveryPerson </h3>
+          <button (click)="goToDeliveryPersonRegister()" class="btn btn-outline-dark mb-2 w-100">
+            Register as deliveryPerson
+          </button> 
+          <button (click)="goToDeliveryPersonLogin()" class="btn btn-dark w-100">DeliveryPerson Login</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  

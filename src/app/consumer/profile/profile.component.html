@@ -1,0 +1,41 @@
+<app-consumer-navbar>
+<div class="profile-container">
+  <!-- View Mode -->
+  <div *ngIf="consumerData && !editMode">
+    <h2>My Profile</h2>
+
+    <div class="profile-field"><strong>Name:</strong> {{ consumerData.name }}</div>
+    <div class="profile-field"><strong>Email:</strong> {{ consumerData.email }}</div>
+    <div class="profile-field"><strong>Mobile:</strong> {{ consumerData.mobileNumber }}</div>
+    <div class="profile-field"><strong>Address:</strong> {{ consumerData.deliveryAddress }}</div>
+    <div class="profile-field"><strong>Pincode:</strong> {{ consumerData.pincode }}</div>
+   
+    <button (click)="enableEdit()">Update Profile</button>
+  </div>
+
+  <!-- Edit Mode -->
+  <div *ngIf="editMode && profileForm">
+    <h2>Edit Profile</h2>
+
+    <form [formGroup]="profileForm" (ngSubmit)="onUpdate()">
+      <label>Name:</label>
+      <input formControlName="name" type="text" />
+
+      <label>Address:</label>
+      <input formControlName="deliveryAddress" type="text" />
+
+      <label>Pincode:</label>
+      <input formControlName="pincode" type="text" /> 
+
+      <div class="button-group">
+        <button type="submit" [disabled]="profileForm.invalid">Save Changes</button>
+        <button type="button" (click)="cancelEdit()" class="cancel-btn">Cancel</button>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+    </form>
+  </div>
+</div>
+</app-consumer-navbar>

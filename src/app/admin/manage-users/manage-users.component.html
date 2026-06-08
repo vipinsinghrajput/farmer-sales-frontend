@@ -1,0 +1,146 @@
+<app-admin-navbar>
+<div class="user-management">
+
+
+
+
+  <h2>👥 Manage Users</h2>
+
+  <div class="tab-buttons">
+    <button [class.active]="selectedTab === 'FARMER'" (click)="switchTab('FARMER')">👨‍🌾 Farmers</button>
+    <button [class.active]="selectedTab === 'CONSUMER'" (click)="switchTab('CONSUMER')">🛒 Consumers</button>
+  </div>
+
+  <div  *ngIf="selectedTab === 'FARMER'">
+    <!-- Filter Toggle Button -->
+<div class="filter-toggle">
+  <button (click)="showFilter = !showFilter">
+    {{ showFilter ? 'Hide Filters ✖️' : 'Show Filters 🔍' }}
+  </button>
+</div>
+
+<!-- Collapsible Filter Banner -->
+<div class="filter-banner" *ngIf="showFilter">
+  <form (ngSubmit)="loadFarmers()" class="filter-form">
+    <input type="number" [(ngModel)]="filter.id" name="id" placeholder="Farmer ID" />
+    <input type="text" [(ngModel)]="filter.name" name="name" placeholder="Farmer Name" />
+    <select [(ngModel)]="filter.status" name="status">
+      <option value="">All Status</option>
+      <option value="true">Active</option>
+      <option value="false">Inactive</option>
+    </select>
+    <button type="submit">Apply</button>
+    <button type="button" (click)="resetFilters()">Reset</button>
+  </form>
+</div>
+
+  </div>
+
+
+
+    <!-- Toggle Consumer Filter Button -->
+<div class="filter-toggle" *ngIf="selectedTab === 'CONSUMER'">
+  <button (click)="showConsumerFilter = !showConsumerFilter">
+    {{ showConsumerFilter ? 'Hide Filters ✖️' : 'Show Filters 🔍' }}
+  </button>
+</div>
+
+<!-- Consumer Filter Banner -->
+<div class="filter-banner" *ngIf="showConsumerFilter && selectedTab === 'CONSUMER'">
+  <form (ngSubmit)="loadConsumers()" class="filter-form">
+    <input type="number" [(ngModel)]="consumerFilter.id" name="consumerId" placeholder="Consumer ID" />
+    <input type="text" [(ngModel)]="consumerFilter.name" name="consumerName" placeholder="Consumer Name" />
+    <select [(ngModel)]="consumerFilter.status" name="consumerStatus">
+      <option value="">All</option>
+      <option value="true">Active</option>
+      <option value="false">Inactive</option>
+    </select>
+    <button type="submit">Apply</button>
+    <button type="button" (click)="resetConsumerFilters()">Reset</button>
+  </form>
+</div>
+
+  
+
+  <!-- Farmers Table -->
+  <table *ngIf="selectedTab === 'FARMER'">
+    <thead>
+      <tr>
+        <th>#ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Status</th>
+        <th>Toggle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let farmer of farmers">
+        <td>{{farmer.id}}</td>
+        <td>{{farmer.name}}</td>
+        <td>{{farmer.email}}</td>
+        <td>{{farmer.mobileNumber}}</td>
+        <td [ngClass]="farmer.status ? 'active' : 'deactive'">
+             {{farmer.status ? 'Active' : 'Deactive'}}
+        </td>
+       
+       <td>
+           <button (click)="toggleFarmerStatus(farmer)">
+           {{farmer.status ? 'Make Deactive' : 'Make Active'}}
+           </button>
+       </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Consumers Table -->
+  <table *ngIf="selectedTab === 'CONSUMER'">
+    <thead>
+      <tr>
+        <th>#ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Status</th>
+        <th>Toggle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let consumer of consumers">
+        <td>{{consumer.id}}</td>
+        <td>{{consumer.name}}</td>
+        <td>{{consumer.email}}</td>
+        <td>{{consumer.mobileNumber}}</td>
+        <td [ngClass]="consumer.status ? 'active' : 'deactive'">
+           {{consumer.status ? 'Active' : 'Deactive'}}
+        </td>
+        <td>
+          <button (click)="toggleConsumerStatus(consumer)">
+           {{consumer.status ? 'Make Deactive' : 'Make Active'}}
+        </button>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+   <div *ngIf="selectedTab === 'FARMER'">
+<div class="pagination" *ngIf="totalPages > 1" >
+  <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 0">Prev</button>
+  <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+  <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage + 1 >= totalPages">Next</button>
+</div>
+</div>
+<!-- Pagination -->
+<div class="pagination" *ngIf="consumerTotalPages > 1 && selectedTab === 'CONSUMER'">
+  <button (click)="onConsumerPageChange(consumerCurrentPage - 1)" [disabled]="consumerCurrentPage === 0">
+    Prev
+  </button>
+  <span>Page {{ consumerCurrentPage + 1 }} of {{ consumerTotalPages }}</span>
+  <button (click)="onConsumerPageChange(consumerCurrentPage + 1)" [disabled]="consumerCurrentPage + 1 >= consumerTotalPages">
+    Next
+  </button>
+</div>
+
+</div>
+</app-admin-navbar>
