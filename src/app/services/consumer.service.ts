@@ -129,7 +129,13 @@ export class ConsumerService {
   getAllFarmers(): Observable<any> { return this.http.get(`${this.baseUrl}/farmer/getall`); }
   markAsRead(notificationId: number): Observable<any> { return this.http.put(`${this.baseUrl}/notifications/cmarkread?notificationId=${notificationId}`, null); }
   markAllAsRead(): Observable<any> { return this.http.put(`${this.baseUrl}/notifications/callmarkread`, null); }
-  getConsumerOrders(page: number, size: number, status: string): Observable<any> { return this.http.get(`${this.baseUrl}/order/getconsumerorders?page=${page}&size=${size}&status=${status || ''}`); }
+  getConsumerOrders(page: number, size: number, status: string, fromDate?: string, toDate?: string): Observable<any> { 
+    let params = new HttpParams().set('page', page).set('size', size);
+    if (status) params = params.set('status', status);
+    if (fromDate) params = params.set('fromDate', fromDate);
+    if (toDate) params = params.set('toDate', toDate);
+    return this.http.get(`${this.baseUrl}/order/getconsumerorders`, { params }); 
+  }
   getFarmerById(farmerId: number): Observable<any> { return this.http.get(`${this.baseUrl}/farmer/getbyid?id=${farmerId}`); }
   cancelOrder(orderId: number, reason: string): Observable<any> { return this.http.put(`${this.baseUrl}/order/cancel?orderId=${orderId}&reason=${reason}`, null); }
 }
