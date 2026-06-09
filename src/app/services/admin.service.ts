@@ -75,4 +75,19 @@ export class AdminService {
       .set('status', status.toString());
     return this.http.put(`${this.baseUrl}/admin/updateconsumerstatus`, null, { params });
   }
+
+  getProfile(): Observable<any> {
+    return this.getAdmin();
+  }
+
+  getAdminNotifications(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/notifications/adminall`);
+  }
+
+  getAllFarmers(): Observable<any> { return this.http.get(`${this.baseUrl}/farmer/getall`); }
+  getFarmerProfile(request: any): Observable<any> { return this.http.get(`${this.baseUrl}/farmer/getbyid`, { params: request }); }
+  getConsumerProfile(request: any): Observable<any> { return this.http.get(`${this.baseUrl}/consumer/getbyid`, { params: request }); }
+  markAsRead(notificationId: number): Observable<any> { return this.http.put(`${this.baseUrl}/notifications/amarkread?notificationId=${notificationId}`, null); }
+  markAllAsRead(): Observable<any> { return this.http.put(`${this.baseUrl}/notifications/aallmarkread`, null); }
+  updateProfile(updatedData: any): Observable<any> { return this.updateAdmin(updatedData); }
 }
