@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://your-production-backend-url.com' // Replace with live backend URL later
+  apiUrl: 'https://farmer-sales-backend.onrender.com'
 };
