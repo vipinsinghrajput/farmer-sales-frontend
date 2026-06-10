@@ -60,31 +60,41 @@ export class FarmerLoginComponent {
     email: '',
     password: ''
   };
-  errorMsg = '';
+  errorMsg: string | undefined;
+  isLoading = false;
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  login() {
+  onLogin() {
+    this.errorMsg = '';
+    this.isLoading = true;
+
     const { email, password } = this.loginData;
     const url = `https://farmer-sales-backend.onrender.com/farmer/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
-    
-  // login() {
-  //   this.http.post('https://farmer-sales-backend.onrender.com/farmer/login', this.loginData).subscribe({
-    this.http.post(url,{email,password} ).subscribe({
+
+    this.http.post(url, null).subscribe({
       next: (res: any) => {
-        console.log('✅ Login success', res);
-        localStorage.setItem('authToken', res.response.token); // 🔐 Store Access Token
-        this.router.navigate(['/auth/farmer/verify-otp'],{ replaceUrl: true });
+        this.isLoading = false;
+        console.log('Login success', res);
+        
+        localStorage.setItem("authToken", res.response.token);
        
-        // this.router.navigate(['/farmer/dashboard']);
+        this.router.navigate(['/auth/farmer/verify-otp'], { replaceUrl: true ,
+          state: { successMsg: 'Login successful! Please verify the OTP sent to your email.' }
+      });
       },
       error: (err) => {
-        // this.errorMsg = 'Invalid credentials or server error';
-        this.errorMsg = err.error.message || 'Invalid credentials or server error';
-          setTimeout(() => {
-          this.errorMsg = '';
-          }, 2000); // ⏱️ 2 seconds
-        console.error('❌ Login failed:', err);
+        this.isLoading = false;
+        console.error('Login failed', err);
+        if (err.error?.message) {
+          this.errorMsg = err.error.message;
+        } else if (err.error?.error) {
+          this.errorMsg = err.error.error;
+        } else if (err.status) {
+          this.errorMsg = `Server Error (${err.status}): Please check your details or try again later.`;
+        } else {
+          this.errorMsg = 'Something went wrong. Please try again.';
+        }
       }
     });
   }

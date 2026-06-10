@@ -29,6 +29,7 @@ export class FarmerRegisterComponent {
     farmLicenseNumber: ''
   };
   errorMsg: string | undefined;
+  isLoading = false;
   // successMsg: string | undefined;
   
   constructor(private http: HttpClient, private router: Router) {}
@@ -40,10 +41,12 @@ export class FarmerRegisterComponent {
 
     // this.successMsg = '';
     this.errorMsg = '';
+    this.isLoading = true;
 
     this.http.post('https://farmer-sales-backend.onrender.com/farmer/register', this.farmerData)
       .subscribe({
         next: (res:any) => {
+          this.isLoading = false;
           console.log(' Registration success', res);
           // Store email/phone temporarily for verifying OTP
           localStorage.setItem("authToken",res.response.token);
@@ -55,9 +58,14 @@ export class FarmerRegisterComponent {
         });
         },
         error: (err) => {
+          this.isLoading = false;
           console.error(' Registration failed', err);
          if (err.error?.message) {
         this.errorMsg = err.error.message;
+      } else if (err.error?.error) {
+        this.errorMsg = err.error.error;
+      } else if (err.status) {
+        this.errorMsg = `Server Error (${err.status}): Please check your details or try again later.`;
       } else {
         this.errorMsg = 'Something went wrong. Please try again.';
       }

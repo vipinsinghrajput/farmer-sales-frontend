@@ -2,7 +2,7 @@
     <div class="login-box">
       <h2>Farmer Login</h2>
   
-      <form (ngSubmit)="login()" #loginForm="ngForm" class="login-form">
+      <form (ngSubmit)="onLogin()" #loginForm="ngForm" class="login-form">
         <div class="form-group">
           <label>Email</label>
           <input type="email" name="email" [(ngModel)]="loginData.email" required placeholder="Enter your email" />
@@ -13,7 +13,11 @@
           <input type="password" name="password" [(ngModel)]="loginData.password" required placeholder="Enter your password" />
         </div>
   
-        <button type="submit" class="login-button">Login</button>
+        <button type="submit" [disabled]="loginForm.invalid || isLoading" class="login-button">
+          <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          <span *ngIf="!isLoading">Login</span>
+          <span *ngIf="isLoading"> Logging in...</span>
+        </button>
       </form>
   
       <p *ngIf="errorMsg" class="error-text">{{ errorMsg }}</p>

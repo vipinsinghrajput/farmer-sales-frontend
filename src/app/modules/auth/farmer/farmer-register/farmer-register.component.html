@@ -93,7 +93,11 @@
           <div class="error" *ngIf="license.invalid && license.touched">License Number is required.</div>
         </div>
   
-        <button type="submit" [disabled]="form.invalid" class="register-button">Register</button>
+        <button type="submit" [disabled]="form.invalid || isLoading" class="register-button">
+          <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          <span *ngIf="!isLoading">Register</span>
+          <span *ngIf="isLoading"> Registering...</span>
+        </button>
       </form>
     </div>
   </div>
