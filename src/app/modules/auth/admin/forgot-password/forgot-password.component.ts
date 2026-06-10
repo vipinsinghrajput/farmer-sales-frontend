@@ -29,7 +29,7 @@
 //   constructor(private http: HttpClient, private router: Router) {}
 
 //   onSubmit() {
-//     const apiUrl = `http://localhost:8082/admin/forgot-password?email=${this.email}`;
+//     const apiUrl = `https://farmer-sales-backend.onrender.com/admin/forgot-password?email=${this.email}`;
 //     this.http.post(apiUrl,{}).subscribe({
 //       next: (res:any) => {
 //         alert('✅ OTP sent to admin email!');
@@ -69,7 +69,7 @@ export class AdminForgotPasswordComponent {
   constructor(private http: HttpClient, private router: Router) {}
 
   onSubmit() {
-    const apiUrl = `http://localhost:8082/admin/forgot-password?email=${this.email}`;
+    const apiUrl = `https://farmer-sales-backend.onrender.com/admin/forgot-password?email=${this.email}`;
     this.loading = true;
     this.errorMessage = '';
     this.successMessage = '';

@@ -35,7 +35,7 @@ export class ConsumerLoginComponent {
 
   login() {
     const { email, password } = this.loginData;
-    const url = `http://localhost:8082/consumer/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
+    const url = `https://farmer-sales-backend.onrender.com/consumer/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
     
     this.http.post(url, { email, password }).subscribe({
       next: (res: any) => {

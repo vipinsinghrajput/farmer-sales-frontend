@@ -22,7 +22,7 @@
 
 //   onSubmit() {
 //     if (this.loginForm.valid) {
-//       const apiUrl = 'http://localhost:8082/farmer/login';
+//       const apiUrl = 'https://farmer-sales-backend.onrender.com/farmer/login';
   
 //       const params = new HttpParams()
 //         .set('email', this.loginForm.value.email)
@@ -66,10 +66,10 @@ export class FarmerLoginComponent {
 
   login() {
     const { email, password } = this.loginData;
-    const url = `http://localhost:8082/farmer/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
+    const url = `https://farmer-sales-backend.onrender.com/farmer/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
     
   // login() {
-  //   this.http.post('http://localhost:8082/farmer/login', this.loginData).subscribe({
+  //   this.http.post('https://farmer-sales-backend.onrender.com/farmer/login', this.loginData).subscribe({
     this.http.post(url,{email,password} ).subscribe({
       next: (res: any) => {
         console.log('✅ Login success', res);

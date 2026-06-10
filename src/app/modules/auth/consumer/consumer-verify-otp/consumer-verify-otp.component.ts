@@ -32,7 +32,7 @@ export class ConsumerVerifyOtpComponent {
 
     console.log("auth token ==> " + authToken);
 
-    const url = `http://localhost:8082/consumer/verify-otp?otp=${encodeURIComponent(otp)}`;
+    const url = `https://farmer-sales-backend.onrender.com/consumer/verify-otp?otp=${encodeURIComponent(otp)}`;
     const headers = {
       'Authorization': `Bearer ${authToken}`
     };

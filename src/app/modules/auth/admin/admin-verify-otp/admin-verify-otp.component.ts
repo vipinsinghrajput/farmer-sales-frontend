@@ -36,7 +36,7 @@
 //     const authToken = localStorage.getItem('authToken'); // 🔐 Retrieve saved auth token
 //     console.log("auth token == > " + authToken);
 
-//     const url = `http://localhost:8082/admin/verify-otp?otp=${encodeURIComponent(otp)}`;
+//     const url = `https://farmer-sales-backend.onrender.com/admin/verify-otp?otp=${encodeURIComponent(otp)}`;
     
 //     const headers = {
 //       'Authorization': `Bearer ${authToken}`  // 👈 Send token as Bearer
@@ -88,7 +88,7 @@ export class AdminVerifyOtpComponent {
     const authToken = localStorage.getItem('authToken'); // 🔐 Retrieve saved auth token
     console.log("auth token == >", authToken);
 
-    const url = `http://localhost:8082/admin/verify-otp?otp=${encodeURIComponent(otp)}`;
+    const url = `https://farmer-sales-backend.onrender.com/admin/verify-otp?otp=${encodeURIComponent(otp)}`;
 
     const headers = {
       'Authorization': `Bearer ${authToken}` // 👈 Send token as Bearer
@@ -149,7 +149,7 @@ export class AdminVerifyOtpComponent {
 
 //     console.log("auth token ==> " + authToken);
 
-//     const url = `http://localhost:8082/consumer/verify-otp?otp=${encodeURIComponent(otp)}`;
+//     const url = `https://farmer-sales-backend.onrender.com/consumer/verify-otp?otp=${encodeURIComponent(otp)}`;
 //     const headers = {
 //       'Authorization': `Bearer ${authToken}`
 //     };

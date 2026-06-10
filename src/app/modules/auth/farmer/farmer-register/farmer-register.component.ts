@@ -41,7 +41,7 @@ export class FarmerRegisterComponent {
     // this.successMsg = '';
     this.errorMsg = '';
 
-    this.http.post('http://localhost:8082/farmer/register', this.farmerData)
+    this.http.post('https://farmer-sales-backend.onrender.com/farmer/register', this.farmerData)
       .subscribe({
         next: (res:any) => {
           console.log(' Registration success', res);

@@ -29,7 +29,7 @@ export class ConsumerResetPasswordComponent {
     const email = localStorage.getItem('consumerEmail');
     const authToken = localStorage.getItem('authToken');
 
-    const apiUrl = `http://localhost:8082/consumer/reset-password`;
+    const apiUrl = `https://farmer-sales-backend.onrender.com/consumer/reset-password`;
 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${authToken}`

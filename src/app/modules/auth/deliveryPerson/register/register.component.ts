@@ -30,7 +30,7 @@ export class RegisterComponent {
   registerDeliveryPerson() {
     this.errorMsg = '';
 
-    this.http.post('http://localhost:8082/delivery/register', this.deliveryData)
+    this.http.post('https://farmer-sales-backend.onrender.com/delivery/register', this.deliveryData)
       .subscribe({
         next: (res: any) => {
           console.log('🚚 Delivery Person Registration Success', res);

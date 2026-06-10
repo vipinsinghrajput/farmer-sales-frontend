@@ -31,7 +31,7 @@ export class VerifyOtpComponent {
 
     console.log("auth token ==> " + authToken);
 
-    const url = `http://localhost:8082/deliveryPerson/verify-otp?otp=${encodeURIComponent(otp)}`;
+    const url = `https://farmer-sales-backend.onrender.com/deliveryPerson/verify-otp?otp=${encodeURIComponent(otp)}`;
     const headers = {
       'Authorization': `Bearer ${authToken}`
     };

@@ -47,7 +47,7 @@
 //       quantity: item.quantity
 //     }));
 
-//     this.http.post('http://localhost:8080/api/cart/confirm', payload)
+//     this.http.post('https://farmer-sales-backend.onrender.com/cart/confirm', payload)
 //       .subscribe({
 //         next: (res) => {
 //           alert('✅ Cart confirmed successfully');

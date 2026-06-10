@@ -20,7 +20,7 @@ export class ConsumerForgotPasswordComponent {
   constructor(private http: HttpClient, private router: Router) {}
 
   onSubmit() {
-    const apiUrl = `http://localhost:8082/consumer/forgot-password?email=${this.email}`;
+    const apiUrl = `https://farmer-sales-backend.onrender.com/consumer/forgot-password?email=${this.email}`;
     this.loading = true;
     this.errorMessage = '';
     this.successMessage = '';

@@ -21,7 +21,7 @@ export class ForgotPasswordComponent {
   errorMessage: string = '';
   successMessage: string = '';
   onSubmit() {
-    const apiUrl = `http://localhost:8082/farmer/forgot-password?email=${this.email}`;
+    const apiUrl = `https://farmer-sales-backend.onrender.com/farmer/forgot-password?email=${this.email}`;
     this.loading = true;
     this.errorMessage = '';
     this.successMessage = '';

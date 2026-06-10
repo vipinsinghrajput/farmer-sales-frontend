@@ -48,7 +48,7 @@ onSubmit() {
 
   
 
-  const apiUrl = `http://localhost:8082/farmer/reset-password`;
+  const apiUrl = `https://farmer-sales-backend.onrender.com/farmer/reset-password`;
 
   const headers = {
     'Authorization': `Bearer ${authToken}`

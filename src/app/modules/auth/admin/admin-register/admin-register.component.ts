@@ -21,7 +21,7 @@
 //   constructor(private http: HttpClient, private router: Router) {}
 
 //   registerAdmin() {
-//     this.http.post('http://localhost:8082/admin/register', this.adminData)
+//     this.http.post('https://farmer-sales-backend.onrender.com/admin/register', this.adminData)
 //       .subscribe({
 //         next: (res: any) => {
 //           console.log('✅ Admin registration success', res);
@@ -66,7 +66,7 @@ export class AdminRegisterComponent {
   registerAdmin() {
     this.errorMsg = '';
 
-    this.http.post('http://localhost:8082/admin/register', this.adminData)
+    this.http.post('https://farmer-sales-backend.onrender.com/admin/register', this.adminData)
       .subscribe({
         next: (res: any) => {
           console.log('✅ Admin registration success', res);

@@ -31,7 +31,7 @@
 
 
 //   loadProducts() {
-//     this.http.get<any>('http://localhost:8080/api/products') // Use your real API endpoint
+//     this.http.get<any>('https://farmer-sales-backend.onrender.com/products') // Use your real API endpoint
 //       .subscribe(
 //         res => {
 //           this.products = res.response || [];

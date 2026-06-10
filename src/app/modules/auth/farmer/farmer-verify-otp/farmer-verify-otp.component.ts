@@ -40,7 +40,7 @@ export class FarmerVerifyOtpComponent  {
     const { otp } = this.otpData;
     const authToken = localStorage.getItem('authToken'); // 🔐 Retrieve saved auth token
   console.log("auth token == > " + authToken);
-    const url = `http://localhost:8082/farmer/verify-otp?otp=${encodeURIComponent(otp)}`;
+    const url = `https://farmer-sales-backend.onrender.com/farmer/verify-otp?otp=${encodeURIComponent(otp)}`;
   
     const headers = {
       'Authorization': `Bearer ${authToken}`  // 👈 Send token as Bearer

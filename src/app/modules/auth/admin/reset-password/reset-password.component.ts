@@ -23,7 +23,7 @@
 
   
 
-//   const apiUrl = `http://localhost:8082/admin/reset-password`;
+//   const apiUrl = `https://farmer-sales-backend.onrender.com/admin/reset-password`;
 
 //   const headers = {
 //     'Authorization': `Bearer ${authToken}`
@@ -81,7 +81,7 @@ export class AdminResetPasswordComponent {
     const email = localStorage.getItem('adminEmail');
     const authToken = localStorage.getItem('authToken');
 
-    const apiUrl = `http://localhost:8082/admin/reset-password`;
+    const apiUrl = `https://farmer-sales-backend.onrender.com/admin/reset-password`;
 
     const headers = {
       'Authorization': `Bearer ${authToken}`

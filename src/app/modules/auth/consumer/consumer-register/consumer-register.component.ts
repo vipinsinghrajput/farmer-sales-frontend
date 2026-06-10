@@ -33,7 +33,7 @@ export class ConsumerRegisterComponent {
   registerConsumer() {
     this.errorMsg = '';
 
-    this.http.post('http://localhost:8082/consumer/register', this.consumerData)
+    this.http.post('https://farmer-sales-backend.onrender.com/consumer/register', this.consumerData)
       .subscribe({
         next: (res: any) => {
           console.log('Registration success', res);
