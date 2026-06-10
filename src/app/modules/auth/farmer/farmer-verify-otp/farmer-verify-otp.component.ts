@@ -23,6 +23,7 @@ export class FarmerVerifyOtpComponent  {
   };
   successMsg: string = '';
   errorMsg: any;
+  isLoading = false;
   constructor(private http: HttpClient, private router: Router) {
 
       const navigation = this.router.getCurrentNavigation();
@@ -34,36 +35,38 @@ export class FarmerVerifyOtpComponent  {
   
 
   verifyOtp() {
-   
-
+    this.errorMsg = '';
+    this.isLoading = true;
 
     const { otp } = this.otpData;
     const authToken = localStorage.getItem('authToken'); // 🔐 Retrieve saved auth token
-  console.log("auth token == > " + authToken);
     const url = `https://farmer-sales-backend.onrender.com/farmer/verify-otp?otp=${encodeURIComponent(otp)}`;
   
     const headers = {
       'Authorization': `Bearer ${authToken}`  // 👈 Send token as Bearer
     };
   
-    console.log("headers == > " + headers);
-    this.http.post(url, otp,{ headers }).subscribe({
+    this.http.post(url, null, { headers }).subscribe({
       next: (res:any) => {
-        
+        this.isLoading = false;
         console.log('✅ OTP verified'+ res);
         localStorage.setItem('accessToken', res.response.accessToken);
 
         this.router.navigate(['/farmer/dashboard'], {replaceUrl: true});
       },
       error: (err) => {
+        this.isLoading = false;
         console.error('❌ OTP verification failed', err);
 
         if (err.error?.message) {
           this.errorMsg = err.error.message;
+        } else if (err.error?.error) {
+          this.errorMsg = err.error.error;
+        } else if (err.status) {
+          this.errorMsg = `Server Error (${err.status}): Please check your details or try again later.`;
         } else {
           this.errorMsg = 'Something went wrong. Please try again.';
         }
-       
       }
     });
   }

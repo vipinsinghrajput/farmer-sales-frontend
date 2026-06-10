@@ -17,7 +17,11 @@
         <label for="otp">Enter OTP</label>
         <input type="text" id="otp" name="otp" [(ngModel)]="otpData.otp" required class="otp-input" />
         
-        <button type="submit" [disabled]="form.invalid" class="submit-btn">Verify OTP</button>
+        <button type="submit" [disabled]="form.invalid || isLoading" class="submit-btn">
+          <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          <span *ngIf="!isLoading">Verify OTP</span>
+          <span *ngIf="isLoading"> Verifying...</span>
+        </button>
       </form>
     </div>
   </div>

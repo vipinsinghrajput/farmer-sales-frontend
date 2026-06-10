@@ -31,6 +31,7 @@ export class ResetPasswordComponent {
   };
   successMessage: string;
   errorMessage:string | undefined;
+  isLoading = false;
 
 
   constructor(private http: HttpClient, private router: Router) {
@@ -59,8 +60,12 @@ onSubmit() {
     newPassword: this.resetData.newPassword
   };
 
+  this.isLoading = true;
+  this.errorMessage = '';
+
   this.http.post(apiUrl, body, { headers }).subscribe({
     next: () => {
+      this.isLoading = false;
       alert('✅ Password reset successful!');
       localStorage.removeItem('farmerEmail');
       localStorage.removeItem('authToken');
@@ -68,10 +73,14 @@ onSubmit() {
       
     },
     error: (err) => {
+      this.isLoading = false;
       console.error('❌ Reset failed', err);
-      alert('Reset failed. Please try again.');
       if (err.error?.message) {
         this.errorMessage = err.error.message;
+      } else if (err.error?.error) {
+        this.errorMessage = err.error.error;
+      } else if (err.status) {
+        this.errorMessage = `Server Error (${err.status}): Please try again later.`;
       } else {
         this.errorMessage = 'Something went wrong. Please try again.';
       }

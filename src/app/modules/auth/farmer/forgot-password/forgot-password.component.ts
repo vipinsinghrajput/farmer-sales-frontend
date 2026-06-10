@@ -28,20 +28,27 @@ export class ForgotPasswordComponent {
    
     this.http.post(apiUrl,{}).subscribe({
       next: (res: any) => {
-        alert('✅ OTP sent to email!');
         console.log(' forgot success', res);
         localStorage.setItem('farmerEmail', this.email);  // save email for next step
         localStorage.setItem("authToken",res.response.token);
+        this.loading = false;
         this.router.navigate(['/auth/farmer/reset'],{ replaceUrl: true ,
           state: { successMessage: res.message }
         });
        
       },
       error: (err) => {
-        console.error('❌ Error sending OTP', err);
-        alert('Failed to send OTP. Try again.');
-        this.errorMessage = err.error?.message || 'Something went wrong';
         this.loading = false;
+        console.error('❌ Error sending OTP', err);
+        if (err.error?.message) {
+          this.errorMessage = err.error.message;
+        } else if (err.error?.error) {
+          this.errorMessage = err.error.error;
+        } else if (err.status) {
+          this.errorMessage = `Server Error (${err.status}): Please try again later.`;
+        } else {
+          this.errorMessage = 'Something went wrong. Please try again.';
+        }
       }
     });
   }
