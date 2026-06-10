@@ -19,6 +19,7 @@ export class FarmerManageOrdersComponent implements OnInit {
   // status = ['CONFIRMED', 'Not Authorized'];
   // selectedStatus: string = 'ALL';
   errorMessage :string| null=null;
+  successMessage :string| null=null;
 
    totalPages: number = 0;
 currentPage: number = 0;
@@ -76,8 +77,15 @@ nextPage() {
 
   updateStatus(orderId: number, newStatus: string) {
     this.farmerService.updateOrderStatus(orderId, newStatus).subscribe({
-      next: () => this.fetchOrders(),
-      error: () => alert('Failed to update order status.')
+      next: () => {
+        this.successMessage = '✅ Order status updated successfully.';
+        this.fetchOrders();
+        setTimeout(() => this.successMessage = null, 3000);
+      },
+      error: () => {
+        this.errorMessage = '❌ Failed to update order status.';
+        setTimeout(() => this.errorMessage = null, 3000);
+      }
     });
   }
 
@@ -142,28 +150,32 @@ prepareToAssign(orderId: number) {
       this.availableDeliveryPersons = res.response;
     },
     error: (err) => {
-      alert('❌ Failed to load delivery persons');
+      this.errorMessage = '❌ Failed to load delivery persons';
       console.error(err);
+      setTimeout(() => this.errorMessage = null, 3000);
     }
   });
 }
 
 assignDeliveryPerson(orderId: number, personId: string) {
   if (!personId) {
-    alert('Please select a delivery person.');
+    this.errorMessage = 'Please select a delivery person.';
+    setTimeout(() => this.errorMessage = null, 3000);
     return;
   }
 
   this.farmerService.assignDeliveryPerson(orderId, +personId).subscribe({
     next: (res) => {
-      alert('✅ Delivery person assigned successfully.');
+      this.successMessage = '✅ Delivery person assigned successfully.';
       this.assigningOrderId = null;
       this.availableDeliveryPersons = [];
       this.fetchOrders(); // or refresh orders
+      setTimeout(() => this.successMessage = null, 3000);
     },
     error: (err) => {
-      alert('❌ Failed to assign delivery person');
+      this.errorMessage = '❌ Failed to assign delivery person';
       console.error(err);
+      setTimeout(() => this.errorMessage = null, 3000);
     }
   });
 }

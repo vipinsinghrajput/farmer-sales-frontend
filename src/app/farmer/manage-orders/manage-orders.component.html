@@ -20,7 +20,8 @@
 </div>
 
   
-    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+    <div *ngIf="errorMessage" class="error alert alert-danger">{{ errorMessage }}</div>
+    <div *ngIf="successMessage" class="success alert alert-success">{{ successMessage }}</div>
     <div *ngIf="filteredOrders.length === 0 && !errorMessage">No orders found.</div>
   
     <div *ngFor="let order of filteredOrders" class="order-card" >

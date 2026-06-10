@@ -14,7 +14,15 @@
         </div>
         <div class="col-md-6 mb-3">
           <label>Unit</label>
-          <input formControlName="unit" class="form-control" placeholder="e.g. kg, liter">
+          <select formControlName="unit" class="form-control" required>
+            <option value="" disabled selected>Select unit</option>
+            <option value="kg">Kilogram (kg)</option>
+            <option value="gram">Gram (g)</option>
+            <option value="liter">Liter (L)</option>
+            <option value="ml">Milliliter (ml)</option>
+            <option value="piece">Piece</option>
+            <option value="dozen">Dozen</option>
+          </select>
         </div>
         <div class="col-md-6 mb-3">
           <label>Price</label>

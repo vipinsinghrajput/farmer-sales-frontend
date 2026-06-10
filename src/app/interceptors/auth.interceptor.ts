@@ -33,10 +33,11 @@ export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: 
 
   return next(authReq).pipe(
     catchError((error: HttpErrorResponse) => {
-      if (error.status === 401 && typeof error.error === 'string' && error.error.includes('deactivated')) {
-        alert('❌ Your account is deactivated by admin.');
+      if (error.status === 401) {
         localStorage.clear();
-        router.navigate(['/landing']); // 🔁 Redirect to login
+        router.navigate(['/auth/farmer/login'], { 
+          state: { errorMsg: 'Session expired. Please login again.' } 
+        });
       }
       return throwError(() => error);
     })

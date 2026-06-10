@@ -262,8 +262,7 @@ showSuccessPopup() {
         // this.products = res.products;
       },
       error: (err) => {
-        alert('❌ Failed to get products');
-        this.errorMsggetall = err.error.message || 'Server error';
+        this.errorMsggetall = err.error?.message || '❌ Failed to get products';
         console.error(err);
       }
     });
@@ -285,12 +284,12 @@ showSuccessPopup() {
     if (confirm('Are you sure you want to delete this product?')) {
       this.farmerService.deleteProduct(id).subscribe({
         next: () => {
-          alert('✅ Product deleted');
+          this.responseMessage = '✅ Product deleted';
           this.getProducts();
+          this.showSuccessPopup();
         },
         error: (err) => {
-          alert('❌ Failed to delete product');
-          this.errorMsgdelete = err.error.message || 'Server error';
+          this.errorMsgdelete = err.error?.message || '❌ Failed to delete product';
           console.error(err);
         }
       });
